@@ -1,19 +1,53 @@
 {
     "version": "https://jsonfeed.org/version/1",
-    "title": "白雨",
+    "title": "白雨馆主",
     "subtitle": "世界和我爱着你",
     "icon": "https://californiafitzleo.github.io/images/favicon.ico",
-    "description": "孑然一身,爱一个人",
+    "description": "孑然一身，爱一个人",
     "home_page_url": "https://californiafitzleo.github.io",
     "items": [
         {
-            "id": "https://californiafitzleo.github.io/2023/03/01/Book-01/01%E6%88%91%E6%9B%BE%E6%98%AF%E4%B8%80%E5%90%8D%E9%A5%B2%E5%85%BB%E5%91%98/",
-            "url": "https://californiafitzleo.github.io/2023/03/01/Book-01/01%E6%88%91%E6%9B%BE%E6%98%AF%E4%B8%80%E5%90%8D%E9%A5%B2%E5%85%BB%E5%91%98/",
-            "title": "01我曾是一名饲养员",
-            "date_published": "2023-03-01T06:50:30.000Z",
-            "content_html": "<h1 id=\"我曾是\"><a class=\"markdownIt-Anchor\" href=\"#我曾是\">#</a> 我曾是</h1>\n<h2 id=\"一名\"><a class=\"markdownIt-Anchor\" href=\"#一名\">#</a> 一名</h2>\n<p>饲养员</p>\n",
+            "id": "https://californiafitzleo.github.io/2024/06/01/Book-01/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "url": "https://californiafitzleo.github.io/2024/06/01/Book-01/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "title": "00图书在版编目（CIP）数据",
+            "date_published": "2024-06-01T06:50:30.000Z",
+            "content_html": "<ul>\n<li>民法。上册 / 王利明主编. --9 版. – 北京：中国人民大学出版社，2022.1</li>\n<li>新编 21 世纪法学系列教材 / 曾宪义，王利明总主编</li>\n<li>ISBN 978-7-300-30043-6</li>\n<li>Ⅰ.①民… Ⅱ.①王… Ⅲ.①民法 - 中国 - 高等学校 - 教材 Ⅳ.①D923</li>\n<li>中国版本图书馆 CIP 数据核字（2021）第 252030 号</li>\n<li>版次：2000 年 6 月第 1 版   2022 年 1 月第 9 版</li>\n<li>印次：2022 年 4 月第 3 次印刷</li>\n</ul>\n",
             "tags": [
-                "我曾是一名饲养员"
+                "理想国",
+                "B502.232柏拉图(Platon,公元前427-前347年)"
+            ]
+        },
+        {
+            "id": "https://californiafitzleo.github.io/2024/06/01/Book-04/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "url": "https://californiafitzleo.github.io/2024/06/01/Book-04/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "title": "00图书在版编目（CIP）数据",
+            "date_published": "2024-06-01T06:50:30.000Z",
+            "content_html": "<ul>\n<li>民法。上册 / 王利明主编. --9 版. – 北京：中国人民大学出版社，2022.1</li>\n<li>新编 21 世纪法学系列教材 / 曾宪义，王利明总主编</li>\n<li>ISBN 978-7-300-30043-6</li>\n<li>Ⅰ.①民… Ⅱ.①王… Ⅲ.①民法 - 中国 - 高等学校 - 教材 Ⅳ.①D923</li>\n<li>中国版本图书馆 CIP 数据核字（2021）第 252030 号</li>\n<li>版次：2000 年 6 月第 1 版   2022 年 1 月第 9 版</li>\n<li>印次：2022 年 4 月第 3 次印刷</li>\n</ul>\n",
+            "tags": [
+                "红玫瑰与白玫瑰",
+                "I246.7新体短篇小说"
+            ]
+        },
+        {
+            "id": "https://californiafitzleo.github.io/2024/06/01/Book-05/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "url": "https://californiafitzleo.github.io/2024/06/01/Book-05/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "title": "00图书在版编目（CIP）数据",
+            "date_published": "2024-06-01T06:50:30.000Z",
+            "content_html": "<ul>\n<li>民法。上册 / 王利明主编. --9 版. – 北京：中国人民大学出版社，2022.1</li>\n<li>新编 21 世纪法学系列教材 / 曾宪义，王利明总主编</li>\n<li>ISBN 978-7-300-30043-6</li>\n<li>Ⅰ.①民… Ⅱ.①王… Ⅲ.①民法 - 中国 - 高等学校 - 教材 Ⅳ.①D923</li>\n<li>中国版本图书馆 CIP 数据核字（2021）第 252030 号</li>\n<li>版次：2000 年 6 月第 1 版   2022 年 1 月第 9 版</li>\n<li>印次：2022 年 4 月第 3 次印刷</li>\n</ul>\n",
+            "tags": [
+                "围城",
+                "I247.5新体长篇、中篇小说"
+            ]
+        },
+        {
+            "id": "https://californiafitzleo.github.io/2024/06/01/Book-03/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "url": "https://californiafitzleo.github.io/2024/06/01/Book-03/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "title": "00图书在版编目（CIP）数据",
+            "date_published": "2024-06-01T06:50:30.000Z",
+            "content_html": "<ul>\n<li>民法。上册 / 王利明主编. --9 版. – 北京：中国人民大学出版社，2022.1</li>\n<li>新编 21 世纪法学系列教材 / 曾宪义，王利明总主编</li>\n<li>ISBN 978-7-300-30043-6</li>\n<li>Ⅰ.①民… Ⅱ.①王… Ⅲ.①民法 - 中国 - 高等学校 - 教材 Ⅳ.①D923</li>\n<li>中国版本图书馆 CIP 数据核字（2021）第 252030 号</li>\n<li>版次：2000 年 6 月第 1 版   2022 年 1 月第 9 版</li>\n<li>印次：2022 年 4 月第 3 次印刷</li>\n</ul>\n",
+            "tags": [
+                "法国大革命",
+                "K565.41法国资产阶级革命至巴黎公社前夕(1789-1780年)"
             ]
         }
     ]
