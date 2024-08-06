@@ -7,33 +7,11 @@
     "home_page_url": "https://californiafitzleo.github.io",
     "items": [
         {
-            "id": "https://californiafitzleo.github.io/2024/06/01/Book-01/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
-            "url": "https://californiafitzleo.github.io/2024/06/01/Book-01/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
-            "title": "00图书在版编目（CIP）数据",
-            "date_published": "2024-06-01T06:50:30.000Z",
-            "content_html": "<ul>\n<li>理想国&#x2F;（古希腊）柏拉图著；郭斌和，张竹明译.——北京：商务印书馆，1986.8（2024.2重印）</li>\n<li>（汉译世界学术名著丛书）</li>\n<li>ISBN 978-7-100-01756-5</li>\n<li>Ⅰ.①理… Ⅱ.①柏…②郭…③张… Ⅲ.①古希腊罗马哲学 Ⅳ. ①B502.232</li>\n<li>中国版本图书馆CIP数据核字（2012）第 296716 号</li>\n<li>版次：1986年8月第1版</li>\n<li>印次：2024年2月北京第30次印刷</li>\n</ul>\n",
-            "tags": [
-                "理想国",
-                "B502.232柏拉图(Platon,公元前427-前347年)"
-            ]
-        },
-        {
-            "id": "https://californiafitzleo.github.io/2024/06/01/Book-04/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
-            "url": "https://californiafitzleo.github.io/2024/06/01/Book-04/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
-            "title": "00图书在版编目（CIP）数据",
-            "date_published": "2024-06-01T06:50:30.000Z",
-            "content_html": "<ul>\n<li>红玫瑰与白玫瑰&#x2F;张爱玲著.——北京：北京十月文艺出版社，2019.3</li>\n<li>（张爱玲全集）</li>\n<li>ISBN 978-7-5302-1861-7</li>\n<li>Ⅰ.①红… Ⅱ.①张… Ⅲ.①中篇小说——小说集——中国——现代②短篇小说——小说集——中国——现代 Ⅳ.①I246.7</li>\n<li>中国版本图书馆CIP数据核字（2018）第 184491 号</li>\n<li>版次：2019年3月第1版</li>\n<li>印次：2023年10月第20次印刷</li>\n</ul>\n",
-            "tags": [
-                "红玫瑰与白玫瑰",
-                "I246.7新体短篇小说"
-            ]
-        },
-        {
             "id": "https://californiafitzleo.github.io/2024/06/01/Book-03/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
             "url": "https://californiafitzleo.github.io/2024/06/01/Book-03/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
             "title": "00图书在版编目（CIP）数据",
             "date_published": "2024-06-01T06:50:30.000Z",
-            "content_html": "<ul>\n<li>法国大革命&#x2F;（英）威廉·多伊尔（William Doyle）著，黄艳红译.——南京：译林出版社，2017.3（2021.8重印）</li>\n<li>（牛津通识读本）</li>\n<li>书名原文：The French Revolution:A Very Short Introduction</li>\n<li>ISBN 978-7-5447-6496-4</li>\n<li>Ⅰ.①法… Ⅱ.①威…②黄… Ⅲ.①法国大革命 Ⅳ.①K565.41</li>\n<li>中国版本图书馆CIP数据核字（2016）第 157884 号</li>\n<li>版次：2017年3月第1版</li>\n<li>印次：2021年8月第6次印刷</li>\n</ul>\n",
+            "content_html": "<ul>\n<li>法国大革命 /（英）威廉・多伊尔（William Doyle）著，黄艳红译.—— 南京：译林出版社，2017.3（2021.8 重印）</li>\n<li>（牛津通识读本）</li>\n<li>书名原文：The French Revolution:A Very Short Introduction</li>\n<li>ISBN 978-7-5447-6496-4</li>\n<li>Ⅰ.①法… Ⅱ.①威…②黄… Ⅲ.①法国大革命 Ⅳ.①K565.41</li>\n<li>中国版本图书馆 CIP 数据核字（2016）第 157884 号</li>\n<li>版次：2017 年 3 月第 1 版</li>\n<li>印次：2021 年 8 月第 6 次印刷</li>\n</ul>\n",
             "tags": [
                 "法国大革命",
                 "K565.41法国资产阶级革命至巴黎公社前夕(1789-1870年)"
@@ -44,10 +22,42 @@
             "url": "https://californiafitzleo.github.io/2024/06/01/Book-05/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
             "title": "00图书在版编目（CIP）数据",
             "date_published": "2024-06-01T06:50:30.000Z",
-            "content_html": "<ul>\n<li>围城&#x2F;钱钟书著.——2版.——北京：人民文学出版社，2017（2023.7重印）</li>\n<li>ISBN 978-7-02-012789-4</li>\n<li>Ⅰ.①围… Ⅱ.①钱… Ⅲ.①长篇小说——中国——当代 Ⅳ.①I247.5</li>\n<li>中国版本图书馆CIP数据核字（2017）第 101354 号</li>\n<li>版次：1980年10月北京第1版  1991年2月北京第2版</li>\n<li>印次：2023年7月第35次印刷</li>\n</ul>\n",
+            "content_html": "<ul>\n<li>围城 / 钱钟书著.——2 版.—— 北京：人民文学出版社，2017（2023.7 重印）</li>\n<li>ISBN 978-7-02-012789-4</li>\n<li>Ⅰ.①围… Ⅱ.①钱… Ⅲ.①长篇小说 —— 中国 —— 当代 Ⅳ.①I247.5</li>\n<li>中国版本图书馆 CIP 数据核字（2017）第 101354 号</li>\n<li>版次：1980 年 10 月北京第 1 版  1991 年 2 月北京第 2 版</li>\n<li>印次：2023 年 7 月第 35 次印刷</li>\n</ul>\n",
             "tags": [
                 "围城",
                 "I247.5新体长篇、中篇小说"
+            ]
+        },
+        {
+            "id": "https://californiafitzleo.github.io/2024/06/01/Book-01/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "url": "https://californiafitzleo.github.io/2024/06/01/Book-01/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "title": "00图书在版编目（CIP）数据",
+            "date_published": "2024-06-01T06:50:30.000Z",
+            "content_html": "<ul>\n<li>理想国 /（古希腊）柏拉图著；郭斌和，张竹明译.—— 北京：商务印书馆，1986.8（2024.2 重印）</li>\n<li>（汉译世界学术名著丛书）</li>\n<li>ISBN 978-7-100-01756-5</li>\n<li>Ⅰ.①理… Ⅱ.①柏…②郭…③张… Ⅲ.①古希腊罗马哲学 Ⅳ. ①B502.232</li>\n<li>中国版本图书馆 CIP 数据核字（2012）第 296716 号</li>\n<li>版次：1986 年 8 月第 1 版</li>\n<li>印次：2024 年 2 月北京第 30 次印刷</li>\n</ul>\n",
+            "tags": [
+                "理想国",
+                "B502.232柏拉图(Platon,公元前427-前347年)"
+            ]
+        },
+        {
+            "id": "https://californiafitzleo.github.io/2024/06/01/Book-06/01%E9%95%BF%E5%AF%BF%EF%BC%8C%E7%88%B1%EF%BC%8C%E5%8F%8B%E6%83%85/",
+            "url": "https://californiafitzleo.github.io/2024/06/01/Book-06/01%E9%95%BF%E5%AF%BF%EF%BC%8C%E7%88%B1%EF%BC%8C%E5%8F%8B%E6%83%85/",
+            "title": "01长寿，爱，友情",
+            "date_published": "2024-06-01T06:50:30.000Z",
+            "content_html": "<h1 id=\"圣巴索勒莫教堂布莱特威尔鲍德温区牛津郡\"><a class=\"markdownIt-Anchor\" href=\"#圣巴索勒莫教堂布莱特威尔鲍德温区牛津郡\">#</a> 圣巴索勒莫教堂，布莱特威尔・鲍德温区，牛津郡</h1>\n<p>斯蒂芬・鲁姆伯特<br>\n生于 1582 年 2 月<br>\n逝于 1687 年 3 月 4 日<br>\n活了一百零五年<br>\n面色红润身体棒<br>\n足足一百零五年<br>\n你没法活这样长</p>\n<h1 id=\"圣克莱门特教堂抵滨海利埃塞克斯郡\"><a class=\"markdownIt-Anchor\" href=\"#圣克莱门特教堂抵滨海利埃塞克斯郡\">#</a> 圣克莱门特教堂，抵滨海利，埃塞克斯郡</h1>\n<p>此处安息着玛丽・埃利斯<br>\n本教区<br>\n托马斯和莉迪亚・埃利斯之女<br>\n她忠贞勇敢，满怀希望<br>\n逝于 1609 年 6 月 3 日<br>\n享年 119 岁</p>\n<h1 id=\"据说位于圣安德鲁教堂希夫纳尔什罗普郡\"><a class=\"markdownIt-Anchor\" href=\"#据说位于圣安德鲁教堂希夫纳尔什罗普郡\">#</a> 据说位于圣安德鲁教堂，希夫纳尔，什罗普郡</h1>\n<p>1776 年 8 月 7 日逝世<br>\n玛丽・耶孜，希夫纳尔人。享年 128 岁。<br>\n多年幸得<br>\n哈里爵士与布里奇曼夫人接济。<br>\n就在 1666 年伦敦大火之后，<br>\n她徒步到了伦敦。<br>\n一百二十余年来身心强健，<br>\n92 岁那年与第三任丈夫步入婚姻殿堂。</p>\n",
+            "tags": [
+                "墓志铭图书馆"
+            ]
+        },
+        {
+            "id": "https://californiafitzleo.github.io/2024/06/01/Book-04/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "url": "https://californiafitzleo.github.io/2024/06/01/Book-04/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
+            "title": "00图书在版编目（CIP）数据",
+            "date_published": "2024-06-01T06:50:30.000Z",
+            "content_html": "<ul>\n<li>红玫瑰与白玫瑰 / 张爱玲著.—— 北京：北京十月文艺出版社，2019.3</li>\n<li>（张爱玲全集）</li>\n<li>ISBN 978-7-5302-1861-7</li>\n<li>Ⅰ.①红… Ⅱ.①张… Ⅲ.①中篇小说 —— 小说集 —— 中国 —— 现代②短篇小说 —— 小说集 —— 中国 —— 现代 Ⅳ.①I246.7</li>\n<li>中国版本图书馆 CIP 数据核字（2018）第 184491 号</li>\n<li>版次：2019 年 3 月第 1 版</li>\n<li>印次：2023 年 10 月第 20 次印刷</li>\n</ul>\n",
+            "tags": [
+                "红玫瑰与白玫瑰",
+                "I246.7新体短篇小说"
             ]
         },
         {
@@ -55,7 +65,7 @@
             "url": "https://californiafitzleo.github.io/2024/06/01/Book-06/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/",
             "title": "00图书在版编目（CIP）数据",
             "date_published": "2024-06-01T06:50:30.000Z",
-            "content_html": "<ul>\n<li>墓志铭图书馆&#x2F;（英）萨缪尔·法努斯著；黄兰岚译.——上海：上海文艺出版社，2019（2023.6重印）</li>\n<li>ISBN 978-7-5321-7277-1</li>\n<li>Ⅰ.①墓… Ⅱ.①萨…②黄… Ⅲ.①随笔——作品集——英国——现代 Ⅳ.①I561.65</li>\n<li>中国版本图书馆CIP数据核字（2019）第 139992 号</li>\n<li>版次：2019年8月第1版</li>\n<li>印次：2023年6月第7次印刷</li>\n</ul>\n",
+            "content_html": "<ul>\n<li>墓志铭图书馆 /（英）萨缪尔・法努斯著；黄兰岚译.—— 上海：上海文艺出版社，2019（2023.6 重印）</li>\n<li>ISBN 978-7-5321-7277-1</li>\n<li>Ⅰ.①墓… Ⅱ.①萨…②黄… Ⅲ.①随笔 —— 作品集 —— 英国 —— 现代 Ⅳ.①I561.65</li>\n<li>中国版本图书馆 CIP 数据核字（2019）第 139992 号</li>\n<li>版次：2019 年 8 月第 1 版</li>\n<li>印次：2023 年 6 月第 7 次印刷</li>\n</ul>\n",
             "tags": [
                 "墓志铭图书馆",
                 "I561.65随笔"
