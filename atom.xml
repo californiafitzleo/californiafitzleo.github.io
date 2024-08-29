@@ -29,6 +29,23 @@
         <updated>2024-06-01T06:50:30.000Z</updated>
     </entry>
     <entry>
+        <id>https://californiafitzleo.github.io/2024/06/01/Book-05/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/</id>
+        <title>00图书在版编目（CIP）数据</title>
+        <link rel="alternate" href="https://californiafitzleo.github.io/2024/06/01/Book-05/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/"/>
+        <content type="html">&lt;ul&gt;
+&lt;li&gt;围城 / 钱钟书著.——2 版.—— 北京：人民文学出版社，2017（2023.7 重印）&lt;/li&gt;
+&lt;li&gt;ISBN 978-7-02-012789-4&lt;/li&gt;
+&lt;li&gt;Ⅰ.①围… Ⅱ.①钱… Ⅲ.①长篇小说 —— 中国 —— 当代 Ⅳ.①I247.5&lt;/li&gt;
+&lt;li&gt;中国版本图书馆 CIP 数据核字（2017）第 101354 号&lt;/li&gt;
+&lt;li&gt;版次：1980 年 10 月北京第 1 版  1991 年 2 月北京第 2 版&lt;/li&gt;
+&lt;li&gt;印次：2023 年 7 月第 35 次印刷&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="围城" scheme="https://californiafitzleo.github.io/categories/Book-05/" />
+        <category term="I247.5新体长篇、中篇小说" scheme="https://californiafitzleo.github.io/tags/I247-5%E6%96%B0%E4%BD%93%E9%95%BF%E7%AF%87%E3%80%81%E4%B8%AD%E7%AF%87%E5%B0%8F%E8%AF%B4/" />
+        <updated>2024-06-01T06:50:30.000Z</updated>
+    </entry>
+    <entry>
         <id>https://californiafitzleo.github.io/2024/06/01/Book-04/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/</id>
         <title>00图书在版编目（CIP）数据</title>
         <link rel="alternate" href="https://californiafitzleo.github.io/2024/06/01/Book-04/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/"/>
@@ -44,23 +61,6 @@
 </content>
         <category term="红玫瑰与白玫瑰" scheme="https://californiafitzleo.github.io/categories/Book-04/" />
         <category term="I246.7新体短篇小说" scheme="https://californiafitzleo.github.io/tags/I246-7%E6%96%B0%E4%BD%93%E7%9F%AD%E7%AF%87%E5%B0%8F%E8%AF%B4/" />
-        <updated>2024-06-01T06:50:30.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://californiafitzleo.github.io/2024/06/01/Book-05/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/</id>
-        <title>00图书在版编目（CIP）数据</title>
-        <link rel="alternate" href="https://californiafitzleo.github.io/2024/06/01/Book-05/00%E5%9B%BE%E4%B9%A6%E5%9C%A8%E7%89%88%E7%BC%96%E7%9B%AE%EF%BC%88CIP%EF%BC%89%E6%95%B0%E6%8D%AE/"/>
-        <content type="html">&lt;ul&gt;
-&lt;li&gt;围城 / 钱钟书著.——2 版.—— 北京：人民文学出版社，2017（2023.7 重印）&lt;/li&gt;
-&lt;li&gt;ISBN 978-7-02-012789-4&lt;/li&gt;
-&lt;li&gt;Ⅰ.①围… Ⅱ.①钱… Ⅲ.①长篇小说 —— 中国 —— 当代 Ⅳ.①I247.5&lt;/li&gt;
-&lt;li&gt;中国版本图书馆 CIP 数据核字（2017）第 101354 号&lt;/li&gt;
-&lt;li&gt;版次：1980 年 10 月北京第 1 版  1991 年 2 月北京第 2 版&lt;/li&gt;
-&lt;li&gt;印次：2023 年 7 月第 35 次印刷&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-        <category term="围城" scheme="https://californiafitzleo.github.io/categories/Book-05/" />
-        <category term="I247.5新体长篇、中篇小说" scheme="https://californiafitzleo.github.io/tags/I247-5%E6%96%B0%E4%BD%93%E9%95%BF%E7%AF%87%E3%80%81%E4%B8%AD%E7%AF%87%E5%B0%8F%E8%AF%B4/" />
         <updated>2024-06-01T06:50:30.000Z</updated>
     </entry>
     <entry>
@@ -370,8 +370,37 @@
 某天将会安息此处，&lt;br&gt;
 安眠于她亲爱的教母 ——&lt;br&gt;
  然内拉伯爵夫人伊丽莎白身边。&lt;/p&gt;
+&lt;h1 id=&#34;伍德劳恩公墓埃尔迈拉市纽约&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#伍德劳恩公墓埃尔迈拉市纽约&#34;&gt;#&lt;/a&gt; 伍德劳恩公墓，埃尔迈拉市，纽约&lt;/h1&gt;
+&lt;p&gt;夏日暖阳温和地照着；&lt;br&gt;
+徐徐南风柔软地拂过；&lt;br&gt;
+上方的如茵绿草，轻躺，轻躺 ——&lt;br&gt;
+ 睡吧宝贝儿，晚安，晚安。&lt;/p&gt;
+&lt;h1 id=&#34;纪念花园全国有色人种协进会巴尔的摩马里兰州&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#纪念花园全国有色人种协进会巴尔的摩马里兰州&#34;&gt;#&lt;/a&gt; 纪念花园，全国有色人种协进会，巴尔的摩，马里兰州&lt;/h1&gt;
+&lt;p&gt;此处安放着多萝西・帕克的骨灰&lt;br&gt;
+（1893——1967）&lt;br&gt;
+幽默大师，作家，评论家。&lt;br&gt;
+人权与公民权益的捍卫者。&lt;br&gt;
+她曾建议自己的墓志铭为&lt;br&gt;
+ “原谅我所留下的尘埃”。&lt;br&gt;
+特建造此纪念花园，&lt;br&gt;
+以纪念她弘扬人类同一性的崇高精神，&lt;br&gt;
+在与黑人和犹太人的&lt;br&gt;
+永恒友谊中发挥的纽带作用&lt;br&gt;
+捐赠方：全国有色人种协进会&lt;br&gt;
+ 1988 年 10 月 28 日&lt;/p&gt;
 </content>
         <category term="墓志铭图书馆" scheme="https://californiafitzleo.github.io/categories/Book-06/" />
+        <updated>2024-06-01T06:50:30.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://californiafitzleo.github.io/2024/06/01/Book-07/02%E4%B8%89%E5%91%A8%E5%90%8E%EF%BC%882011%E5%B9%B42%E6%9C%88%EF%BC%89/</id>
+        <title>02三周后（2011年2月）</title>
+        <link rel="alternate" href="https://californiafitzleo.github.io/2024/06/01/Book-07/02%E4%B8%89%E5%91%A8%E5%90%8E%EF%BC%882011%E5%B9%B42%E6%9C%88%EF%BC%89/"/>
+        <content type="html">&lt;p&gt;玛丽安觉得她真正的人生正在很遥远的地方发生，在她缺席的情况下发生，她不知道自己能否有一天找到它，成为它的一部分。在学校时她常有这种感觉，但没有伴随画面，显示她真正的人生看起来什么样，或大致是什么。她只知道当它发生时她就没必要再想象了。&lt;/p&gt;
+&lt;p&gt;康奈尔似乎理解她对学校的感受；他说他喜欢听她阐述个人观点。你在课上已经听得够多了，她说。他就事论事地回答：你在课上不一样，你其实不是那样的。他似乎认为玛丽安能进入一系列不同的人格，能在其间轻松切换。这让她很惊讶，因为她通常觉得自己被囚禁在单一人格里，不会因为她的言行而改变。她过去尝试过改变自己，但从未成功。如果她和康奈尔在一起时变得不一样了，那么这种改变并没有发生在她内部、她的人格里，而是发生在他们之间、他们关系的张力之中。有时她惹他笑，有时他很沉默、难以揣测，等他离开后，她会觉得亢奋、紧张，既精力旺盛又筋疲力尽。&lt;/p&gt;
+&lt;p&gt;他走了。她虚弱地从窗座上跌下来，跌坐在地板上，双腿在身前张开，像一只破布娃娃。她坐在那儿，觉得康奈尔来她家仿佛只是为了测试她，而她通过了这场测试，那个吻就是在告诉她：你通过了。她想起她说自己从没跟人接过吻时他笑的样子。要是换个人那样笑，她可能会觉得很残忍，但他那样就不会。他们是在一起笑，笑他们共同置身的处境，尽管她不知道具体该怎么描述这个处境，也不知道究竟有什么可笑的。&lt;/p&gt;
+</content>
+        <category term="正常人" scheme="https://californiafitzleo.github.io/categories/Book-07/" />
         <updated>2024-06-01T06:50:30.000Z</updated>
     </entry>
     <entry>
@@ -382,17 +411,6 @@
 我们没在吵架。&lt;br&gt;
 我知道你大概很讨厌我，但你是唯一会跟我说话的人。&lt;br&gt;
 我从来没说过我讨厌你，他说。&lt;/p&gt;
-</content>
-        <category term="正常人" scheme="https://californiafitzleo.github.io/categories/Book-07/" />
-        <updated>2024-06-01T06:50:30.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://californiafitzleo.github.io/2024/06/01/Book-07/02%E4%B8%89%E5%91%A8%E5%90%8E%EF%BC%882011%E5%B9%B42%E6%9C%88%EF%BC%89/</id>
-        <title>02三周后（2011年2月）</title>
-        <link rel="alternate" href="https://californiafitzleo.github.io/2024/06/01/Book-07/02%E4%B8%89%E5%91%A8%E5%90%8E%EF%BC%882011%E5%B9%B42%E6%9C%88%EF%BC%89/"/>
-        <content type="html">&lt;p&gt;玛丽安觉得她真正的人生正在很遥远的地方发生，在她缺席的情况下发生，她不知道自己能否有一天找到它，成为它的一部分。在学校时她常有这种感觉，但没有伴随画面，显示她真正的人生看起来什么样，或大致是什么。她只知道当它发生时她就没必要再想象了。&lt;/p&gt;
-&lt;p&gt;康奈尔似乎理解她对学校的感受；他说他喜欢听她阐述个人观点。你在课上已经听得够多了，她说。他就事论事地回答：你在课上不一样，你其实不是那样的。他似乎认为玛丽安能进入一系列不同的人格，能在其间轻松切换。这让她很惊讶，因为她通常觉得自己被囚禁在单一人格里，不会因为她的言行而改变。她过去尝试过改变自己，但从未成功。如果她和康奈尔在一起时变得不一样了，那么这种改变并没有发生在她内部、她的人格里，而是发生在他们之间、他们关系的张力之中。有时她惹他笑，有时他很沉默、难以揣测，等他离开后，她会觉得亢奋、紧张，既精力旺盛又筋疲力尽。&lt;/p&gt;
-&lt;p&gt;他走了。她虚弱地从窗座上跌下来，跌坐在地板上，双腿在身前张开，像一只破布娃娃。她坐在那儿，觉得康奈尔来她家仿佛只是为了测试她，而她通过了这场测试，那个吻就是在告诉她：你通过了。她想起她说自己从没跟人接过吻时他笑的样子。要是换个人那样笑，她可能会觉得很残忍，但他那样就不会。他们是在一起笑，笑他们共同置身的处境，尽管她不知道具体该怎么描述这个处境，也不知道究竟有什么可笑的。&lt;/p&gt;
 </content>
         <category term="正常人" scheme="https://californiafitzleo.github.io/categories/Book-07/" />
         <updated>2024-06-01T06:50:30.000Z</updated>
