@@ -124,7 +124,7 @@ theme: shoka
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: 'git'
-  repo: https://github.com/californiafitzleo/californiafitzleo.github.io.git
+  repo: git@github.com:californiafitzleo/californiafitzleo.github.io.git
   branch: main
 
 # edit for Theme.shoka

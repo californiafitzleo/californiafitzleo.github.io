@@ -9,7 +9,8 @@
     "server": "hexo server",
     "start": "hexo server",
     "dev": "hexo server",
-    "deploy:local": "powershell -ExecutionPolicy Bypass -File deploy.ps1"
+    "deploy:local": "powershell -ExecutionPolicy Bypass -File deploy.ps1",
+    "push": "powershell -ExecutionPolicy Bypass -File push.ps1"
   },
   "hexo": {
     "version": "7.3.0"
