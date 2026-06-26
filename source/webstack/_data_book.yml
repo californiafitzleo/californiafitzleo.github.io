@@ -1,0 +1,41 @@
+- site: 文津搜索
+  owner: 国家图书馆
+  url: http://find.nlc.cn/
+  desc: 书籍信息查询
+  image: https://s1.imagehub.cc/images/2025/07/16/6eb0028bef58454a93c25a2a31b40f9b.th.png
+  color:  "#e9546b"
+
+- site: 中图分类号
+  owner: 中图分类号
+  url: https://ztflh.xhma.com/html/hot.html
+  desc: 中图分类号查询
+  image: https://s1.imagehub.cc/images/2025/07/16/672c3f69ecbaefff6773662006793286.th.png
+  color: "#e9546b"
+
+- site: 读书派
+  owner: 读书派
+  url: https://www.dushupai.com/
+  desc: 电子书下载
+  image: https://s1.imagehub.cc/images/2025/07/16/c8955f7abeb3a772482bad1bceee8e73.th.png
+  color: "#e9546b"
+
+- site: 我讀书单
+  owner: 中国民商法律网
+  url: https://civillaw.com.cn/fs/?pid=2
+  desc: 法律类书单
+  image: https://s1.imagehub.cc/images/2025/07/16/fb830e44cf74f8c6f3ecc0476daceffb.th.png
+  color: "#e9546b"
+
+- site: 古诗文网
+  owner: 古诗文网
+  url: https://www.gushiwen.cn/
+  desc: 古诗文查询
+  image: https://s1.imagehub.cc/images/2025/07/16/27c39f8af4d3041044c61853e9b8b227.th.png
+  color: "#e9546b"
+
+- site: 成语大全
+  owner: 千篇网
+  url: https://chengyu.qianp.com/
+  desc: 成语查询
+  image: https://s1.imagehub.cc/images/2025/07/16/df016611603ec44e81c11ad6fe6db0d5.th.png
+  color: "#e9546b"
