@@ -1,0 +1,35 @@
+# 微信读书同步参数配置
+# 
+# 修改此文件可调整同步行为和展示效果
+
+# 展示配置
+highlight:
+  # 主题风格：default / warm / minimal / dark
+  # 对应 source/_data/weread.styl 中的样式类
+  theme: "default"
+  
+  # 是否显示划线序号
+  show_number: false
+
+# 排序配置
+sort:
+  # 排序方式：
+  # - position：按原文出现顺序（推荐）
+  # - time：按划线时间倒序
+  by: "position"
+
+# 同步配置
+sync:
+  # 同步模式：
+  # - incremental：增量同步（只处理新增划线）
+  # - full：全量同步（重新生成所有划线）
+  mode: "incremental"
+  
+  # 匹配失败时是否中止同步
+  # - false：跳过失败的章节，继续同步其他内容，最后输出错误报告
+  # - true：遇到第一个错误立即中止
+  fail_on_error: false
+  
+  # 是否在同步前校验标记完整性
+  # 建议保持 true，防止标记被误删导致数据丢失
+  validate_marks: true

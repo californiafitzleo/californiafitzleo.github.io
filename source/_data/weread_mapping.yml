@@ -1,0 +1,104 @@
+# 微信读书 → 博客 的书籍和章节映射
+# 只有配置在这里的书才会同步（白名单机制）
+# 
+# 使用说明：
+# 1. weread_book_id：从 Notion 数据库或微信读书网页版 URL 获取
+# 2. weread_book_title：微信读书的书名（用于校验和显示错误）
+# 3. blog_book_dir：博客中对应的文件夹名（如 Book-01）
+# 4. sync：是否同步，设为 false 可临时暂停
+# 5. chapters：自动匹配失败的章节手动配置在这里
+#
+# 获取微信读书书籍 ID 的方法：
+# - 打开微信读书网页版 weread.qq.com
+# - 打开某本书的详情页
+# - URL 格式：https://weread.qq.com/web/book/detail/{bookId}
+# - {bookId} 就是书籍 ID
+
+books:
+  # ==========================================
+  # 示例配置（请替换为实际的书籍 ID）
+  # ==========================================
+  
+  # 理想国
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "理想国"
+    blog_book_dir: "Book-01"
+    sync: true
+    chapters: []
+  
+  # 诗经通释
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "诗经通释"
+    blog_book_dir: "Book-02"
+    sync: true
+    chapters: []
+  
+  # 百年孤独
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "百年孤独"
+    blog_book_dir: "Book-03"
+    sync: true
+    chapters: []
+  
+  # 法国大革命
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "法国大革命"
+    blog_book_dir: "Book-04"
+    sync: true
+    chapters: []
+  
+  # 红玫瑰与白玫瑰
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "红玫瑰与白玫瑰"
+    blog_book_dir: "Book-05"
+    sync: true
+    chapters: []
+  
+  # 围城
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "围城"
+    blog_book_dir: "Book-06"
+    sync: true
+    chapters: []
+  
+  # 断臂上的花朵
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "断臂上的花朵"
+    blog_book_dir: "Book-07"
+    sync: true
+    chapters: []
+  
+  # 正常人
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "正常人"
+    blog_book_dir: "Book-08"
+    sync: true
+    chapters: []
+  
+  # 微尘
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "微尘"
+    blog_book_dir: "Book-09"
+    sync: true
+    chapters: []
+  
+  # 墓志铭图书馆
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "墓志铭图书馆"
+    blog_book_dir: "Book-10"
+    sync: true
+    chapters: []
+  
+  # 我曾是一名饲养员
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "我曾是一名饲养员"
+    blog_book_dir: "Book-11"
+    sync: true
+    chapters: []
+  
+  # 老饭骨的家常菜
+  - weread_book_id: "请替换为实际的书籍ID"
+    weread_book_title: "老饭骨的家常菜"
+    blog_book_dir: "Book-12"
+    sync: true
+    chapters: []
