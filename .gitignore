@@ -6,3 +6,13 @@ node_modules/
 public/
 .deploy*/
 _multiconfig.yml
+
+# 临时脚本
+remove-tags.js
+remove-all-tags.js
+
+# 旧项目
+weread2notion-pro/
+
+# 微信读书登录状态（敏感信息）
+source/_data/weread-storage.json
