@@ -1,0 +1,115 @@
+{
+  "cookies": [
+    {
+      "name": "wr_gid",
+      "value": "289111751",
+      "domain": "weread.qq.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wr_vid",
+      "value": "911098586",
+      "domain": ".weread.qq.com",
+      "path": "/",
+      "expires": 1785388070.175041,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wr_ql",
+      "value": "0",
+      "domain": ".weread.qq.com",
+      "path": "/",
+      "expires": 1785388070.175099,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wr_rt",
+      "value": "web%40iVN2HF7D872NnavApyb_AL",
+      "domain": ".weread.qq.com",
+      "path": "/",
+      "expires": 1785388070.175173,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wr_fp",
+      "value": "336338468",
+      "domain": ".weread.qq.com",
+      "path": "/",
+      "expires": 1814350316,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wr_localvid",
+      "value": "9cd32f208364e42da9cd1dd",
+      "domain": ".weread.qq.com",
+      "path": "/",
+      "expires": 1813918316,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wr_name",
+      "value": "momo",
+      "domain": ".weread.qq.com",
+      "path": "/",
+      "expires": 1813918316,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wr_gender",
+      "value": "0",
+      "domain": ".weread.qq.com",
+      "path": "/",
+      "expires": 1813918316,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wr_skey",
+      "value": "Mq0jM1uS",
+      "domain": ".weread.qq.com",
+      "path": "/",
+      "expires": 1785405888.37649,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wr_avatar",
+      "value": "https%3A%2F%2Fthirdwx.qlogo.cn%2Fmmopen%2Fvi_32%2FajNVdqHZLLDTmI7DGzrfv1HcEphXIbY0gDX9e6ibOHg1VmCuTibIzic1kMpXQj2Uic1Xk1wotbGJ2ziaQkVvMktTmoA%2F132",
+      "domain": ".weread.qq.com",
+      "path": "/",
+      "expires": 1813918316,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://weread.qq.com",
+      "localStorage": [
+        {
+          "name": "wrLocalSetting",
+          "value": "{\"fontFamily\":\"wr_default_font\"}"
+        }
+      ]
+    }
+  ]
+}

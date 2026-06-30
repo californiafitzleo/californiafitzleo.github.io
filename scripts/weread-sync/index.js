@@ -1,152 +1,104 @@
-/**
- * 微信读书划线同步脚本 - 主入口
- * 
- * 功能：
- * 1. 从 Notion 拉取划线数据
- * 2. 根据配置匹配书籍和章节
- * 3. 更新博客 markdown 文件
- * 4. 生成同步报告
- */
-
 const path = require('path');
-const config = require('./config');
-const notion = require('./notion');
-const matcher = require('./matcher');
-const markdown = require('./markdown');
-const { logger, formatReport } = require('./utils');
+const fs = require('fs');
+const yaml = require('js-yaml');
+const scraper = require('./scraper');
+const { matchChapter, processFile } = require('./sync');
 
-// 博客根目录
+const log = scraper.log;
 const BLOG_ROOT = path.resolve(__dirname, '..', '..');
 const POSTS_DIR = path.join(BLOG_ROOT, 'source', '_posts');
 const DATA_DIR = path.join(BLOG_ROOT, 'source', '_data');
 
+function loadConfig() {
+  const mappingPath = path.join(DATA_DIR, 'weread_mapping.yml');
+  if (!fs.existsSync(mappingPath)) throw new Error(`缺少配置文件: ${mappingPath}`);
+
+  const mapping = yaml.load(fs.readFileSync(mappingPath, 'utf8'));
+  if (!mapping.books || !Array.isArray(mapping.books)) {
+    throw new Error('weread_mapping.yml 格式错误: 缺少 books 数组');
+  }
+
+  return mapping;
+}
+
 async function main() {
-  logger.info('=== 微信读书划线同步开始 ===');
-  
+  log.info('=== 微信读书划线同步 ===');
   const startTime = Date.now();
-  const report = {
-    booksProcessed: 0,
-    chaptersProcessed: 0,
-    highlightsAdded: 0,
-    filesModified: 0,
-    matchErrors: [],
-    parseErrors: []
-  };
+
+  const stats = { books: 0, chapters: 0, added: 0, modified: 0, errors: [] };
 
   try {
-    // 1. 加载配置
-    logger.info('步骤 1：加载配置...');
-    const { mapping, settings } = config.load(DATA_DIR);
-    
-    // 过滤出需要同步的书籍（白名单 + sync: true）
-    const syncBooks = mapping.books.filter(book => book.sync === true);
-    logger.info(`配置了 ${mapping.books.length} 本书，其中 ${syncBooks.length} 本需要同步`);
-    
+    const config = loadConfig();
+    const syncBooks = config.books.filter(b => b.sync === true);
+    log.info(`配置 ${config.books.length} 本书，待同步 ${syncBooks.length} 本`);
+
     if (syncBooks.length === 0) {
-      logger.warn('没有配置需要同步的书籍，请检查 weread_mapping.yml');
+      log.warn('没有需要同步的书籍，请检查 weread_mapping.yml');
       return;
     }
 
-    // 2. 从 Notion 拉取划线数据
-    logger.info('步骤 2：从 Notion 拉取划线数据...');
-    const highlightsData = await notion.fetchHighlights();
-    logger.info(`拉取到 ${highlightsData.totalCount} 条划线，涉及 ${Object.keys(highlightsData.books).length} 本书`);
+    const headless = !process.argv.includes('--show') && !process.env.DEBUG;
+    const bookIds = syncBooks.map(b => b.weread_book_id);
 
-    // 3. 遍历每本书
-    logger.info('步骤 3：处理书籍和章节...');
-    for (const bookConfig of syncBooks) {
-      const bookId = bookConfig.weread_book_id;
-      const bookTitle = bookConfig.weread_book_title;
-      
-      // 检查这本书是否有划线数据
-      if (!highlightsData.books[bookId]) {
-        logger.warn(`《${bookTitle}》在 Notion 中没有划线数据，跳过`);
-        continue;
-      }
-      
-      const bookData = highlightsData.books[bookId];
-      report.booksProcessed++;
+    log.info('步骤 1: 抓取划线数据...');
+    const data = await scraper.fetchHighlights(bookIds, headless);
+    log.info(`共 ${data.totalCount} 条划线，${Object.keys(data.books).length} 本书`);
 
-      // 4. 遍历每章
-      for (const [chapterName, highlights] of Object.entries(bookData.chapters)) {
-        report.chaptersProcessed++;
-        
-        // 匹配章节
-        const matchResult = matcher.matchChapter({
-          bookConfig,
-          chapterName,
-          postsDir: POSTS_DIR
-        });
+    log.info('步骤 2: 同步到博客...');
+    for (const book of syncBooks) {
+      const bookData = data.books[book.weread_book_id];
+      if (!bookData) continue;
 
-        if (!matchResult.success) {
-          report.matchErrors.push({
-            book: bookTitle,
-            chapter: chapterName,
-            reason: matchResult.error
-          });
-          
-          if (settings.sync.fail_on_error) {
-            logger.error(`匹配失败，中止同步：${matchResult.error}`);
-            process.exit(1);
-          } else {
-            logger.warn(`章节匹配失败，跳过：${bookTitle} / ${chapterName}`);
-            continue;
-          }
+      stats.books++;
+      for (const [chapter, highlights] of Object.entries(bookData.chapters)) {
+        stats.chapters++;
+
+        const match = matchChapter(book, chapter, POSTS_DIR);
+        if (!match.success) {
+          stats.errors.push(`${book.weread_book_title}/${chapter}: ${match.error}`);
+          log.warn(`  跳过 - ${chapter}: 匹配失败`);
+          continue;
         }
 
-        const filePath = matchResult.filePath;
-        
-        // 处理 markdown 文件
-        const processResult = await markdown.processFile({
-          filePath,
-          highlights,
-          theme: settings.highlight.theme,
-          showNumber: settings.highlight.show_number,
-          validate: settings.sync.validate_marks
-        });
-
-        if (!processResult.success) {
-          report.parseErrors.push({
-            book: bookTitle,
-            chapter: chapterName,
-            file: filePath,
-            reason: processResult.error
-          });
-          
-          if (settings.sync.fail_on_error) {
-            logger.error(`文件处理失败，中止同步：${processResult.error}`);
-            process.exit(1);
-          } else {
-            logger.warn(`文件处理失败，跳过：${filePath}`);
-            continue;
-          }
+        const result = processFile(match.filePath, highlights);
+        if (!result.success) {
+          stats.errors.push(`${book.weread_book_title}/${chapter}: ${result.error}`);
+          log.warn(`  跳过 - ${chapter}: 处理失败`);
+          continue;
         }
 
-        if (processResult.modified) {
-          report.filesModified++;
-          report.highlightsAdded += processResult.highlightsCount;
-          logger.success(`更新：${bookTitle} / ${chapterName} (${processResult.highlightsCount} 条划线)`);
+        if (result.modified) {
+          stats.modified++;
+          stats.added += result.count;
+          log.success(`  更新 - ${chapter} (${result.count} 条)`);
         } else {
-          logger.info(`无变化：${bookTitle} / ${chapterName}`);
+          log.info(`  无变化 - ${chapter}`);
         }
       }
     }
 
-    // 5. 输出同步报告
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
-    logger.info('\n' + formatReport(report, duration));
-    
-    // 有错误但未中止时，返回非零退出码（可选）
-    if (report.matchErrors.length > 0 || report.parseErrors.length > 0) {
-      logger.warn('存在匹配/解析错误，请检查配置或手动补充映射');
+    log.info('');
+    log.info(`完成! 耗时 ${duration}s`);
+    log.info(`  处理书籍: ${stats.books} 本`);
+    log.info(`  处理章节: ${stats.chapters} 章`);
+    log.info(`  新增划线: ${stats.added} 条`);
+    log.info(`  修改文件: ${stats.modified} 个`);
+
+    if (stats.errors.length > 0) {
+      log.warn(`  错误: ${stats.errors.length} 个`);
+      stats.errors.forEach(e => log.warn(`    - ${e}`));
     }
 
   } catch (error) {
-    logger.error(`同步失败：${error.message}`);
-    logger.error(error.stack);
+    log.error(`同步失败: ${error.message}`);
+    if (process.env.DEBUG) log.error(error.stack);
     process.exit(1);
   }
 }
 
-// 执行
-main();
+if (process.argv.includes('--login')) {
+  scraper.login();
+} else {
+  main();
+}
