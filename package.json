@@ -11,8 +11,8 @@
     "dev": "hexo server",
     "deploy:local": "powershell -ExecutionPolicy Bypass -File deploy.ps1",
     "push": "powershell -ExecutionPolicy Bypass -File push.ps1",
-    "weread-sync": "node scripts/weread-sync/index.js",
-    "weread-login": "node scripts/weread-sync/index.js --login"
+    "weread-sync": "node weread-sync/index.js",
+    "weread-login": "node weread-sync/index.js --login"
   },
   "hexo": {
     "version": "7.3.0"
