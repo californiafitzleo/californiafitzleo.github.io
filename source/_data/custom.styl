@@ -2,3 +2,12 @@
 
 // 引入微信读书划线卡片样式
 @import "weread.styl"
+
+// 取消所有页面内容区域的透明样式
+#main
+  background-color: var(--grey-1)
+  background-image: none
+
+// 首页精选分类卡片封面去掉半透明遮罩
+.cards .item .cover::before
+  opacity: 0
