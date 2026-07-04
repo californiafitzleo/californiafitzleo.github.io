@@ -11,3 +11,45 @@
 // 首页精选分类卡片封面去掉半透明遮罩
 .cards .item .cover::before
   opacity: 0
+
+// 取消右侧边栏的透明样式
+#sidebar > .inner
+  background-color: var(--grey-1)
+
+#sidebar .panels
+  background-color: var(--grey-1)
+
+#sidebar .tab .item
+  background-color: var(--grey-3)
+
+// 调整布局宽度，让中间容器和侧边栏覆盖到边缘（100%，不留边距）
+main > .inner
+  width: 100% !important
+
+  @media screen and (min-width: 1200px)
+    width: 100% !important
+
+  @media screen and (min-width: 1600px)
+    width: 100% !important
+
+#main
+  padding-left: 0 !important
+  padding-right: 0 !important
+
+#main .wrap
+  padding-left: 1.25rem !important
+  padding-right: 1.25rem !important
+
+@media screen and (min-width: 768px)
+  #main
+    width: calc(100% - 18rem) !important
+
+  #sidebar
+    width: 18rem !important
+
+  #sidebar > .inner
+    width: 18rem !important
+
+@media screen and (max-width: 767px)
+  #main
+    width: 100% !important
