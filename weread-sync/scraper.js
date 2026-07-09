@@ -236,15 +236,12 @@ async function fetchViaReaderDOM(page, bookId) {
   } catch {}
 
   // 滚动加载笔记面板，直到没有新内容
-  const chapters = {};
-  let totalCount = 0;
   let lastCount = -1;
   let stableRounds = 0;
   const MAX_ROUNDS = 30;
 
   for (let round = 0; round < MAX_ROUNDS; round++) {
     const notes = await page.$$('.wr_reader_note_panel_item_cell_content_text');
-    const chapterTitles = await page.$$('.wr_reader_note_panel_chapter_title');
 
     if (notes.length === lastCount) {
       stableRounds++;
@@ -270,22 +267,54 @@ async function fetchViaReaderDOM(page, bookId) {
     await page.waitForTimeout(800);
   }
 
-  // 最终提取
-  const notes = await page.$$('.wr_reader_note_panel_item_cell_content_text');
-  const chapterTitles = await page.$$('.wr_reader_note_panel_chapter_title');
+  // 最终提取：按 DOM 顺序遍历，识别章节标题和划线的穿插关系
+  // 结构：章标题 wrapper → 该章 N 条划线 → 下一章标题 → ...
+  const panel = await page.$('.readerNotePanel_scroll_container, .readerNotePanel');
+  const chapters = {};
+  let totalCount = 0;
   let currentChapter = '正文';
 
-  for (let i = 0; i < notes.length; i++) {
-    const content = (await notes[i].textContent()).trim();
-    if (!content || content.length < 5) continue;
+  if (panel) {
+    // 直接在浏览器上下文里提取，避免多次跨进程通信
+    const result = await page.evaluate(() => {
+      const panelEl = document.querySelector('.readerNotePanel_scroll_container') || document.querySelector('.readerNotePanel');
+      if (!panelEl) return { chapters: {}, totalCount: 0 };
 
-    if (chapterTitles.length > i) {
-      currentChapter = cleanChapterTitle(await chapterTitles[i].textContent());
+      const chapters = {};
+      let totalCount = 0;
+      let currentChapter = '正文';
+      let posInChapter = 0;
+
+      // 找出所有章标题和划线内容元素，按文档顺序排列
+      const allItems = panelEl.querySelectorAll('.wr_reader_note_panel_chapter_title, .wr_reader_note_panel_item_cell_content_text');
+
+      for (const el of allItems) {
+        const text = (el.textContent || '').trim();
+        if (!text) continue;
+
+        if (el.classList.contains('wr_reader_note_panel_chapter_title')) {
+          // 章节标题
+          currentChapter = text.replace(/\s+/g, ' ').trim();
+          posInChapter = 0;
+          if (!chapters[currentChapter]) chapters[currentChapter] = [];
+        } else {
+          // 划线内容
+          posInChapter++;
+          if (!chapters[currentChapter]) chapters[currentChapter] = [];
+          chapters[currentChapter].push({ content: text, position: posInChapter });
+          totalCount++;
+        }
+      }
+
+      return { chapters, totalCount };
+    });
+
+    // 清理章节标题
+    for (const [rawTitle, highlights] of Object.entries(result.chapters)) {
+      const cleanTitle = cleanChapterTitle(rawTitle);
+      chapters[cleanTitle] = highlights;
     }
-
-    if (!chapters[currentChapter]) chapters[currentChapter] = [];
-    chapters[currentChapter].push({ content, position: chapters[currentChapter].length + 1 });
-    totalCount++;
+    totalCount = result.totalCount;
   }
 
   if (totalCount === 0) return null;

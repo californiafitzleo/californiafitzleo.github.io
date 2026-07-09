@@ -141,7 +141,11 @@ function buildSection(highlights, manuals) {
 }
 
 function buildCard(content, position) {
-  const escaped = escapeHtml(content);
+  const escaped = escapeHtml(content)
+    .replace(/\r\n/g, '\n')
+    .replace(/[ \t]+$/gm, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .replace(/\n/g, '<br>');
   return `<div class="weread-card" data-position="${position}">
   <span class="weread-text">${escaped}</span>
 </div>`;
