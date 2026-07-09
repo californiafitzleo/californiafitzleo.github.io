@@ -11,16 +11,6 @@
       "sameSite": "Lax"
     },
     {
-      "name": "wr_skey",
-      "value": "Jn13vL7p",
-      "domain": ".weread.qq.com",
-      "path": "/",
-      "expires": 1786202534.536656,
-      "httpOnly": true,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
       "name": "wr_vid",
       "value": "911098586",
       "domain": ".weread.qq.com",
@@ -55,7 +45,7 @@
       "value": "336338468",
       "domain": ".weread.qq.com",
       "path": "/",
-      "expires": 1815147736,
+      "expires": 1815165073,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -65,7 +55,7 @@
       "value": "9cd32f208364e42da9cd1dd",
       "domain": ".weread.qq.com",
       "path": "/",
-      "expires": 1814715736,
+      "expires": 1814733074,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -75,17 +65,7 @@
       "value": "momo",
       "domain": ".weread.qq.com",
       "path": "/",
-      "expires": 1814715736,
-      "httpOnly": false,
-      "secure": false,
-      "sameSite": "Lax"
-    },
-    {
-      "name": "wr_avatar",
-      "value": "https%3A%2F%2Fthirdwx.qlogo.cn%2Fmmopen%2Fvi_32%2FgZEO4MkibUgpezC6z3RPlRIAUnpAHYgn7AuyeSichH7NQT1CnjE7oliaC6sS24fyZXRfgMBMIa1VVGmxxXZo8ofKqsGgNy9Fia70vTMN0VSDXmY%2F132",
-      "domain": ".weread.qq.com",
-      "path": "/",
-      "expires": 1814715736,
+      "expires": 1814733074,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -95,7 +75,27 @@
       "value": "0",
       "domain": ".weread.qq.com",
       "path": "/",
-      "expires": 1814715736,
+      "expires": 1814733074,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wr_skey",
+      "value": "WrGY8Z0c",
+      "domain": ".weread.qq.com",
+      "path": "/",
+      "expires": 1786220918.106291,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "wr_avatar",
+      "value": "https%3A%2F%2Fthirdwx.qlogo.cn%2Fmmopen%2Fvi_32%2FajNVdqHZLLDTmI7DGzrfv1HcEphXIbY0gDX9e6ibOHg1VmCuTibIzic1kMpXQj2Uic1Xk1wotbGJ2ziaQkVvMktTmoA%2F132",
+      "domain": ".weread.qq.com",
+      "path": "/",
+      "expires": 1814733074,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
