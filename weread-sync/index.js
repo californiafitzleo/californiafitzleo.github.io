@@ -5,7 +5,7 @@ const scraper = require('./scraper');
 const { matchChapter, processFile } = require('./sync');
 
 const log = scraper.log;
-const BLOG_ROOT = path.resolve(__dirname, '..', '..');
+const BLOG_ROOT = path.resolve(__dirname, '..');
 const POSTS_DIR = path.join(BLOG_ROOT, 'source', '_posts');
 const DATA_DIR = path.join(BLOG_ROOT, 'source', '_data');
 
@@ -38,10 +38,9 @@ async function main() {
     }
 
     const headless = !process.argv.includes('--show') && !process.env.DEBUG;
-    const bookIds = syncBooks.map(b => b.weread_book_id);
 
     log.info('步骤 1: 抓取划线数据...');
-    const data = await scraper.fetchHighlights(bookIds, headless);
+    const data = await scraper.fetchHighlights(syncBooks, headless);
     log.info(`共 ${data.totalCount} 条划线，${Object.keys(data.books).length} 本书`);
 
     log.info('步骤 2: 同步到博客...');

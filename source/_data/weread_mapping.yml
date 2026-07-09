@@ -4,3 +4,8 @@ books:
     blog_book_dir: "Book-13"
     sync: true
     chapters: []
+  - weread_book_id: "5e632540813aba5bag010c7d"
+    weread_book_title: "剑刻鲸舟"
+    blog_book_dir: "Book-14"
+    sync: true
+    chapters: []
