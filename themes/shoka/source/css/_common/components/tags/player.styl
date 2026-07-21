@@ -198,7 +198,7 @@
       &.current {
         color: var(--primary-color);
         position: relative;
-        background: rgba(var(--primary-color-rgb), .05);
+        background: unquote('rgba(var(--primary-color-rgb), .05)');
 
         &::before {
           font-family-icons();
@@ -211,7 +211,7 @@
           .bar {
             position: absolute;
             height: 100%;
-            background: rgba(var(--primary-color-rgb), .15);
+            background: unquote('rgba(var(--primary-color-rgb), .15)');
             top: 0;
             left: 0;
             the-transition(.2s, ease-out);
@@ -344,7 +344,7 @@
           overflow: visible;
           height: auto!important;
           min-height: 1.25rem;
-          text-shadow: 0 0 .5rem rgba(var(--primary-color-rgb), .3);
+          text-shadow: 0 0 .5rem unquote('rgba(var(--primary-color-rgb), .3)');
         }
       }
     }
