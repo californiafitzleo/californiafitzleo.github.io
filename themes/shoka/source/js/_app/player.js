@@ -53,31 +53,64 @@ const mediaPlayer = function(t, config) {
       })
       return result
     },
-    fetch: function(source) {
+    fetch: function(source, retryCount = 0) {
       var list = []
+      var MAX_RETRY = 2
 
       return new Promise(function(resolve, reject) {
+        var completed = 0
+        var total = source.length
+
+        if (total === 0) {
+          resolve(list)
+          return
+        }
+
         source.forEach(function(raw) {
           var meta = utils.parse(raw)
           if(meta[0]) {
             var skey = JSON.stringify(meta)
-            var playlist = store.get(skey)
-            if(playlist) {
-              list.push.apply(list, JSON.parse(playlist));
-              resolve(list);
+            var cachedPlaylist = store.get(skey)
+            if(cachedPlaylist) {
+              list.push.apply(list, JSON.parse(cachedPlaylist));
+              completed++
+              if (completed === total) resolve(list)
             } else {
-              fetch('https://api.i-meto.com/meting/api?server='+meta[0]+'&type='+meta[1]+'&id='+meta[2]+'&r='+ Math.random())
-                .then(function(response) {
-                  return response.json()
-                }).then(function(json) {
-                  store.set(skey, JSON.stringify(json))
-                  list.push.apply(list, json);
-                  resolve(list);
-                }).catch(function(ex) {})
+              var fetchData = function(attempt) {
+                fetch('https://api.i-meto.com/meting/api?server='+meta[0]+'&type='+meta[1]+'&id='+meta[2]+'&r='+ Math.random())
+                  .then(function(response) {
+                    if (!response.ok) throw new Error('HTTP error ' + response.status)
+                    return response.json()
+                  }).then(function(json) {
+                    if (json && json.length > 0) {
+                      store.set(skey, JSON.stringify(json))
+                    }
+                    list.push.apply(list, json);
+                    completed++
+                    if (completed === total) resolve(list)
+                  }).catch(function(ex) {
+                    if (attempt < MAX_RETRY) {
+                      setTimeout(function() {
+                        fetchData(attempt + 1)
+                      }, 1000 * Math.pow(2, attempt))
+                    } else {
+                      completed++
+                      if (completed === total) {
+                        if (list.length > 0) {
+                          resolve(list)
+                        } else {
+                          reject(ex)
+                        }
+                      }
+                    }
+                  })
+              }
+              fetchData(retryCount)
             }
           } else {
             list.push(raw);
-            resolve(list);
+            completed++
+            if (completed === total) resolve(list)
           }
         })
       })
@@ -101,7 +134,6 @@ const mediaPlayer = function(t, config) {
   t.player = {
     _id: utils.random(999999),
     group: true,
-    // 加载播放列表
     load: function(newList) {
       var d = ""
       var that = this
@@ -110,11 +142,8 @@ const mediaPlayer = function(t, config) {
         if(this.options.rawList !== newList) {
           this.options.rawList = newList;
           playlist.clear()
-          // 获取新列表
-          //this.fetch()
         }
       } else {
-        // 没有列表时，隐藏按钮
         d = "none"
         this.pause()
       }
@@ -122,6 +151,41 @@ const mediaPlayer = function(t, config) {
         buttons.el[el].display(d)
       }
       return this
+    },
+    saveState: function() {
+      if (playlist.current()) {
+        var state = {
+          index: playlist.index,
+          time: source.currentTime,
+          mode: this.options.mode,
+          volume: source.volume,
+          muted: source.muted
+        }
+        store.set('_PlayerState_' + this._id, JSON.stringify(state))
+      }
+    },
+    restoreState: function() {
+      var stateStr = store.get('_PlayerState_' + this._id)
+      if (stateStr) {
+        try {
+          var state = JSON.parse(stateStr)
+          if (typeof state.index === 'number' && state.index >= 0 && state.index < playlist.data.length) {
+            playlist.index = state.index
+          }
+          if (typeof state.mode === 'string') {
+            this.options.mode = state.mode
+            store.set('_PlayerMode', state.mode)
+          }
+          if (typeof state.volume === 'number') {
+            this.volume(state.volume)
+          }
+          if (state.muted) {
+            this.muted('muted')
+          }
+          return state
+        } catch (e) {}
+      }
+      return null
     },
     fetch: function () {
       var that = this;
@@ -135,17 +199,19 @@ const mediaPlayer = function(t, config) {
               that.options.rawList.forEach(function(raw, index) {
                 promises.push(new Promise(function(resolve, reject) {
                   var group = index
-                  var source
+                  var sourceData
                   if(!raw.list) {
                     group = 0
                     that.group = false
-                    source = [raw]
+                    sourceData = [raw]
                   } else {
                     that.group = true
-                    source = raw.list
+                    sourceData = raw.list
                   }
-                  utils.fetch(source).then(function(list) {
+                  utils.fetch(sourceData).then(function(list) {
                     playlist.add(group, list)
+                    resolve()
+                  }).catch(function(ex) {
                     resolve()
                   })
                 }))
@@ -161,6 +227,10 @@ const mediaPlayer = function(t, config) {
             playlist.create()
             controller.create()
             that.mode()
+            var savedState = that.restoreState()
+            if (savedState && typeof savedState.time === 'number') {
+              source.currentTime = savedState.time
+            }
           }
         })
     },
@@ -227,9 +297,8 @@ const mediaPlayer = function(t, config) {
         return;
       }
 
-      var playing = false;
-      if(!source.paused) {
-        playing = true
+      var playing = !source.paused
+      if(playing) {
         this.stop()
       }
 
@@ -243,7 +312,7 @@ const mediaPlayer = function(t, config) {
       if(this.options.type == 'audio')
         preview.create()
 
-      if(playing == true) {
+      if(playing) {
         this.play()
       }
     },
@@ -428,10 +497,16 @@ const mediaPlayer = function(t, config) {
     el: null,
     data: null,
     index: 0,
+    animationFrame: null,
     create: function(box) {
       var current = playlist.index
       var that = this
       var raw = playlist.current().lrc
+
+      if (this.animationFrame) {
+        cancelAnimationFrame(this.animationFrame)
+        this.animationFrame = null
+      }
 
       var callback = function(body) {
         if(current !== playlist.index)
@@ -452,71 +527,77 @@ const mediaPlayer = function(t, config) {
         that.index = 0;
       }
 
-      if(raw.startsWith('http'))
+      if(raw && raw.startsWith('http'))
         this.fetch(raw, callback)
-      else
+      else if (raw)
         callback(raw)
+      else
+        box.innerHTML = '<div class="inner"></div>'
     },
     update: function(currentTime) {
-      if(!this.data)
+      if(!this.data || !this.el || this.data.length === 0)
         return
 
       if (this.index > this.data.length - 1 || currentTime < this.data[this.index][0] || (!this.data[this.index + 1] || currentTime >= this.data[this.index + 1][0])) {
+        var targetIndex = -1
         for (var i = 0; i < this.data.length; i++) {
           if (currentTime >= this.data[i][0] && (!this.data[i + 1] || currentTime < this.data[i + 1][0])) {
-            this.index = i;
-            var y = -(this.index-1);
-            this.el.style.transform = 'translateY('+y+'rem)';
-            this.el.style.webkitTransform = 'translateY('+y+'rem)';
-            this.el.getElementsByClassName('current')[0].removeClass('current');
-            this.el.getElementsByTagName('p')[i].addClass('current');
+            targetIndex = i
+            break
+          }
+        }
+
+        if (targetIndex !== -1 && targetIndex !== this.index) {
+          this.index = targetIndex
+          var y = -(this.index - 1)
+          this.el.style.transform = 'translateY(' + y + 'rem)'
+          this.el.style.webkitTransform = 'translateY(' + y + 'rem)'
+
+          var currentEls = this.el.getElementsByClassName('current')
+          if (currentEls.length > 0) {
+            currentEls[0].removeClass('current')
+          }
+
+          var pEls = this.el.getElementsByTagName('p')
+          if (pEls[targetIndex]) {
+            pEls[targetIndex].addClass('current')
           }
         }
       }
     },
     parse: function(lrc_s) {
-      if (lrc_s) {
-          lrc_s = lrc_s.replace(/([^\]^\n])\[/g, function(match, p1){return p1 + '\n['});
-          const lyric = lrc_s.split('\n');
-          var lrc = [];
-          const lyricLen = lyric.length;
-          for (var i = 0; i < lyricLen; i++) {
-              // match lrc time
-              const lrcTimes = lyric[i].match(/\[(\d{2}):(\d{2})(\.(\d{2,3}))?]/g);
-              // match lrc text
-              const lrcText = lyric[i]
-                  .replace(/.*\[(\d{2}):(\d{2})(\.(\d{2,3}))?]/g, '')
-                  .replace(/<(\d{2}):(\d{2})(\.(\d{2,3}))?>/g, '')
-                  .replace(/^\s+|\s+$/g, '');
+      if (!lrc_s) return []
 
-              if (lrcTimes) {
-                  // handle multiple time tag
-                  const timeLen = lrcTimes.length;
-                  for (var j = 0; j < timeLen; j++) {
-                      const oneTime = /\[(\d{2}):(\d{2})(\.(\d{2,3}))?]/.exec(lrcTimes[j]);
-                      const min2sec = oneTime[1] * 60;
-                      const sec2sec = parseInt(oneTime[2]);
-                      const msec2sec = oneTime[4] ? parseInt(oneTime[4]) / ((oneTime[4] + '').length === 2 ? 100 : 1000) : 0;
-                      const lrcTime = min2sec + sec2sec + msec2sec;
-                      lrc.push([lrcTime, lrcText]);
-                  }
-              }
-          }
-          // sort by time
-          lrc = lrc.filter(function(item){return item[1]});
-          lrc.sort(function(a, b){return a[0] - b[0]});
-          return lrc;
-      } else {
-          return [];
-      }
+      var lrc = []
+      var timeTagPattern = /\[(\d{2}):(\d{2})(?:\.(\d{2,3}))?]/g
+      var lines = lrc_s.split('\n')
+
+      lines.forEach(function(line) {
+        var lrcText = line.replace(timeTagPattern, '').replace(/^\s+|\s+$/g, '')
+        if (!lrcText) return
+
+        var match
+        while ((match = timeTagPattern.exec(line)) !== null) {
+          var min2sec = parseInt(match[1]) * 60
+          var sec2sec = parseInt(match[2])
+          var msec2sec = match[3] ? parseInt(match[3]) / ((match[3] + '').length === 2 ? 100 : 1000) : 0
+          var lrcTime = min2sec + sec2sec + msec2sec
+          lrc.push([lrcTime, lrcText])
+        }
+      })
+
+      return lrc.sort(function(a, b) { return a[0] - b[0] })
     },
     fetch: function(url, callback) {
       fetch(url)
           .then(function(response) {
+            if (!response.ok) throw new Error('HTTP error ' + response.status)
             return response.text()
           }).then(function(body) {
             callback(body)
-          }).catch(function(ex) {})
+          }).catch(function(ex) {
+            callback('')
+          })
     }
   }
 
@@ -735,6 +816,10 @@ const mediaPlayer = function(t, config) {
     onloadedmetadata: function() {
       t.player.seek(0)
       progress.el.attr('data-dtime', utils.secondToTime(source.duration))
+      var savedState = t.player.restoreState()
+      if (savedState && typeof savedState.time === 'number') {
+        source.currentTime = savedState.time
+      }
     },
     onplay: function() {
       t.parentNode.addClass('playing')
@@ -744,6 +829,7 @@ const mediaPlayer = function(t, config) {
     onpause: function() {
       t.parentNode.removeClass('playing')
       NOWPLAYING = null
+      t.player.saveState()
     },
     ontimeupdate: function() {
       if(!this.disableTimeupdate) {
@@ -752,8 +838,12 @@ const mediaPlayer = function(t, config) {
       }
     },
     onended: function(argument) {
+      t.player.saveState()
       t.player.mode()
       t.player.play()
+    },
+    onseeked: function() {
+      t.player.saveState()
     }
   }
 
