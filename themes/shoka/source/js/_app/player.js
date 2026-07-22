@@ -661,13 +661,16 @@ const mediaPlayer = function(t, config) {
       var current = playlist.current()
 
       if (current.type === 'bilibili') {
-        this.el.innerHTML = '<div class="cover"><div class="bilibili-player-embed"><iframe src="' + current.url + '" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe><div class="login-hint"><a href="https://passport.bilibili.com/login" target="_blank" rel="noopener" class="bilibili-login-btn"><i class="ic i-user"></i> 登录B站</a><span>未登录可能无法播放完整内容</span></div></div></div>'
+        this.el.innerHTML = '<div class="cover"><div class="bilibili-player-embed"><iframe src="' + current.url + '" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div></div>'
+        + '<div class="bilibili-login-bar"><button type="button" class="bilibili-login-btn"><i class="ic i-user"></i> 登录B站</button><span>登录后可观看完整内容</span></div>'
         + '<div class="info"><h4 class="title">'+current.name+'</h4><span>'+current.artist+'</span></div>'
 
         var loginBtn = this.el.child('.bilibili-login-btn')
         if (loginBtn) {
           loginBtn.addEventListener('click', function(e) {
+            e.preventDefault()
             e.stopPropagation()
+            window.open('https://passport.bilibili.com/login', '_blank')
           })
         }
       } else {

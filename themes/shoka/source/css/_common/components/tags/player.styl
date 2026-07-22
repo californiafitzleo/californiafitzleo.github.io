@@ -291,48 +291,44 @@
         height: 100%;
         border: none;
       }
+    }
 
-      .login-hint {
-        position: absolute;
-        bottom: .5rem;
-        left: .5rem;
-        right: .5rem;
-        padding: .375rem .75rem;
-        background: rgba(0, 0, 0, .7);
-        border-radius: .25rem;
-        backdrop-filter: blur(.5rem);
-        display: flex;
+    .bilibili-login-bar {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .5rem .75rem;
+      background: var(--grey-1-a7);
+      border-radius: .375rem;
+      margin-top: .5rem;
+
+      .bilibili-login-btn {
+        display: inline-flex;
         align-items: center;
-        gap: .5rem;
-        z-index: 5;
+        gap: .25rem;
+        padding: .375rem .75rem;
+        background: var(--color-pink);
+        color: #fff;
+        font-size: $font-size-smallest;
+        border: none;
+        border-radius: .25rem;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all .2s ease-out;
 
-        .bilibili-login-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: .25rem;
-          padding: .25rem .625rem;
-          background: var(--color-pink);
-          color: #fff;
-          font-size: $font-size-smallest;
-          border-radius: .25rem;
-          text-decoration: none;
-          white-space: nowrap;
-          transition: all .2s ease-out;
-
-          &:hover {
-            background: var(--color-red);
-            transform: scale(1.05);
-          }
-
-          i {
-            font-size: $font-size-smallest;
-          }
+        &:hover {
+          background: var(--color-red);
+          transform: scale(1.05);
         }
 
-        span {
+        i {
           font-size: $font-size-smallest;
-          color: var(--grey-3);
         }
+      }
+
+      span {
+        font-size: $font-size-smallest;
+        color: var(--grey-3);
       }
     }
 
