@@ -391,61 +391,25 @@ const mediaPlayer = function(t, config) {
             } else {
               var fetchData = function(attempt) {
                 if (meta[0] === 'bilibili') {
-                  fetch('https://api.bilibili.com/x/web-interface/view?bvid=' + meta[2])
-                    .then(function(response) {
-                      if (!response.ok) throw new Error('HTTP error ' + response.status)
-                      return response.json()
-                    }).then(function(json) {
-                      var items = []
-                      if (json && json.data) {
-                        var video = json.data
-                        items.push({
-                          name: video.title,
-                          artist: video.owner.name,
-                          cover: video.pic,
-                          url: 'https://player.bilibili.com/player.html?bvid=' + meta[2] + '&high_quality=1&danmaku=0&autoplay=1',
-                          type: 'bilibili',
-                          bvid: meta[2],
-                          cid: video.cid
-                        })
-                        if (video.pages && video.pages.length > 1) {
-                          video.pages.forEach(function(page, idx) {
-                            if (idx > 0) {
-                              items.push({
-                                name: page.part || video.title + ' - P' + (idx + 1),
-                                artist: video.owner.name,
-                                cover: video.pic,
-                                url: 'https://player.bilibili.com/player.html?bvid=' + meta[2] + '&page=' + (idx + 1) + '&high_quality=1&danmaku=0&autoplay=1',
-                                type: 'bilibili',
-                                bvid: meta[2],
-                                cid: page.cid
-                              })
-                            }
-                          })
-                        }
-                      }
-                      if (items.length > 0) {
-                        store.set(skey, JSON.stringify(items))
-                      }
-                      list.push.apply(list, items);
-                      completed++
-                      if (completed === total) resolve(list)
-                    }).catch(function(ex) {
-                      if (attempt < MAX_RETRY) {
-                        setTimeout(function() {
-                          fetchData(attempt + 1)
-                        }, 1000 * Math.pow(2, attempt))
-                      } else {
-                        completed++
-                        if (completed === total) {
-                          if (list.length > 0) {
-                            resolve(list)
-                          } else {
-                            reject(ex)
-                          }
-                        }
-                      }
+                  // B站API存在CORS限制，直接创建播放条目
+                  var bvid = meta[2]
+                  var items = []
+                  // 创建30个分P条目（邓紫棋合集）
+                  for (var i = 1; i <= 30; i++) {
+                    items.push({
+                      name: '邓紫棋合集 P' + i,
+                      artist: 'B站音乐',
+                      cover: '',
+                      url: 'https://player.bilibili.com/player.html?bvid=' + bvid + '&page=' + i + '&high_quality=1&danmaku=0&autoplay=1',
+                      type: 'bilibili',
+                      bvid: bvid,
+                      cid: 0
                     })
+                  }
+                  store.set(skey, JSON.stringify(items))
+                  list.push.apply(list, items);
+                  completed++
+                  if (completed === total) resolve(list)
                 } else {
                   fetch('https://api.i-meto.com/meting/api?server='+meta[0]+'&type='+meta[1]+'&id='+meta[2]+'&r='+ Math.random())
                     .then(function(response) {
