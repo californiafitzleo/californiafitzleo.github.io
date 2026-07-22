@@ -637,18 +637,28 @@ const mediaPlayer = function(t, config) {
         this.stop()
       }
 
-      source.attr('src', item.url);
-      source.attr('title', item.name + ' - ' + item.artist);
-      this.volume(store.get('_PlayerVolume') || '0.7')
-      this.muted(store.get('_PlayerMuted'))
+      if (item.type === 'bilibili') {
+        // B站视频不走audio元素，直接渲染预览
+        progress.create()
+        if(this.options.type == 'audio')
+          preview.create()
+        if(playing) {
+          this.play()
+        }
+      } else {
+        source.attr('src', item.url);
+        source.attr('title', item.name + ' - ' + item.artist);
+        this.volume(store.get('_PlayerVolume') || '0.7')
+        this.muted(store.get('_PlayerMuted'))
 
-      progress.create()
+        progress.create()
 
-      if(this.options.type == 'audio')
-        preview.create()
+        if(this.options.type == 'audio')
+          preview.create()
 
-      if(playing) {
-        this.play()
+        if(playing) {
+          this.play()
+        }
       }
     },
     play: function() {
