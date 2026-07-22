@@ -8,9 +8,8 @@ on:
 
 permissions:
   contents: write
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  pages: write
+  id-token: write
 
 concurrency:
   group: "pages-deploy"
@@ -24,6 +23,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          repository: californiafitzleo/californiafitzleo.github.io
+          ref: source
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,6 +41,9 @@ jobs:
       - name: Build
         run: npx hexo generate
 
+      - name: List public directory
+        run: ls -la public/
+
       - name: Deploy to main branch
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -49,3 +53,4 @@ jobs:
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'deploy: ${{ github.event.head_commit.message }}'
+          external_repository: californiafitzleo/californiafitzleo.github.io
