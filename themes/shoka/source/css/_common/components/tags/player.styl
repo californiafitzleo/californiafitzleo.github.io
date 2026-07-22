@@ -198,7 +198,7 @@
       &.current {
         color: var(--primary-color);
         position: relative;
-        background: unquote('rgba(var(--primary-color-rgb), .05)');
+        background: var(--color-pink-light-a3);
 
         &::before {
           font-family-icons();
@@ -211,7 +211,7 @@
           .bar {
             position: absolute;
             height: 100%;
-            background: unquote('rgba(var(--primary-color-rgb), .15)');
+            background: var(--color-pink-a3);
             top: 0;
             left: 0;
             the-transition(.2s, ease-out);
@@ -344,7 +344,7 @@
           overflow: visible;
           height: auto!important;
           min-height: 1.25rem;
-          text-shadow: 0 0 .5rem unquote('rgba(var(--primary-color-rgb), .3)');
+          text-shadow: 0 0 .5rem var(--color-pink-a3);
         }
       }
     }
@@ -605,11 +605,11 @@
       width: 3rem;
       height: 3rem;
       border-radius: 50%;
-      background: rgba(var(--primary-color-rgb), .9);
+      background: var(--color-pink);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 .25rem 1rem rgba(var(--primary-color-rgb), .4);
+      box-shadow: 0 .25rem 1rem var(--color-pink-a3);
       transition: all .2s ease-out;
 
       i {
@@ -620,7 +620,7 @@
 
       &:hover {
         transform: scale(1.1);
-        box-shadow: 0 .375rem 1.5rem rgba(var(--primary-color-rgb), .6);
+        box-shadow: 0 .375rem 1.5rem var(--color-pink-a3);
       }
     }
   }
@@ -802,7 +802,7 @@
 
           &.active {
             color: var(--primary-color);
-            background: rgba(var(--primary-color-rgb), .05);
+            background: var(--color-pink-light-a3);
 
             &::before {
               font-family-icons();
