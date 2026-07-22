@@ -277,6 +277,38 @@
       flex-direction: column;
     }
 
+    .bilibili-player-embed {
+      position: relative;
+      width: 100%;
+      max-width: 24rem;
+      height: 13.5rem;
+      border-radius: .5rem;
+      overflow: hidden;
+      background: #000;
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .login-hint {
+        position: absolute;
+        bottom: .5rem;
+        left: .5rem;
+        right: .5rem;
+        padding: .375rem .75rem;
+        background: rgba(0, 0, 0, .6);
+        border-radius: .25rem;
+        backdrop-filter: blur(.25rem);
+
+        span {
+          font-size: $font-size-smallest;
+          color: var(--grey-3);
+        }
+      }
+    }
+
     .info {
       display: flex;
       flex-direction: column;

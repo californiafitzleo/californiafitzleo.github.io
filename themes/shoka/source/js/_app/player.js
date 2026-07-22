@@ -44,6 +44,10 @@ const mediaPlayer = function(t, config) {
         ['xiami.com.*album/(\\w+)', 'xiami', 'album'],
         ['xiami.com.*artist/(\\w+)', 'xiami', 'artist'],
         ['xiami.com.*collect/(\\w+)', 'xiami', 'playlist'],
+        ['bilibili\\.com/video/(BV[\\w]+)', 'bilibili', 'video'],
+        ['bilibili\\.com/video/av(\\d+)', 'bilibili', 'video'],
+        ['b23\\.tv/(BV[\\w]+)', 'bilibili', 'video'],
+        ['b23\\.tv/(av\\d+)', 'bilibili', 'video'],
       ].forEach(function(rule) {
         var patt = new RegExp(rule[0])
         var res = patt.exec(link)
@@ -77,33 +81,91 @@ const mediaPlayer = function(t, config) {
               if (completed === total) resolve(list)
             } else {
               var fetchData = function(attempt) {
-                fetch('https://api.i-meto.com/meting/api?server='+meta[0]+'&type='+meta[1]+'&id='+meta[2]+'&r='+ Math.random())
-                  .then(function(response) {
-                    if (!response.ok) throw new Error('HTTP error ' + response.status)
-                    return response.json()
-                  }).then(function(json) {
-                    if (json && json.length > 0) {
-                      store.set(skey, JSON.stringify(json))
-                    }
-                    list.push.apply(list, json);
-                    completed++
-                    if (completed === total) resolve(list)
-                  }).catch(function(ex) {
-                    if (attempt < MAX_RETRY) {
-                      setTimeout(function() {
-                        fetchData(attempt + 1)
-                      }, 1000 * Math.pow(2, attempt))
-                    } else {
-                      completed++
-                      if (completed === total) {
-                        if (list.length > 0) {
-                          resolve(list)
-                        } else {
-                          reject(ex)
+                if (meta[0] === 'bilibili') {
+                  fetch('https://api.bilibili.com/x/web-interface/view?bvid=' + meta[2])
+                    .then(function(response) {
+                      if (!response.ok) throw new Error('HTTP error ' + response.status)
+                      return response.json()
+                    }).then(function(json) {
+                      var items = []
+                      if (json && json.data) {
+                        var video = json.data
+                        items.push({
+                          name: video.title,
+                          artist: video.owner.name,
+                          cover: video.pic,
+                          url: 'https://player.bilibili.com/player.html?bvid=' + meta[2] + '&high_quality=1&danmaku=0&autoplay=1',
+                          type: 'bilibili',
+                          bvid: meta[2],
+                          cid: video.cid
+                        })
+                        if (video.pages && video.pages.length > 1) {
+                          video.pages.forEach(function(page, idx) {
+                            if (idx > 0) {
+                              items.push({
+                                name: page.part || video.title + ' - P' + (idx + 1),
+                                artist: video.owner.name,
+                                cover: video.pic,
+                                url: 'https://player.bilibili.com/player.html?bvid=' + meta[2] + '&page=' + (idx + 1) + '&high_quality=1&danmaku=0&autoplay=1',
+                                type: 'bilibili',
+                                bvid: meta[2],
+                                cid: page.cid
+                              })
+                            }
+                          })
                         }
                       }
-                    }
-                  })
+                      if (items.length > 0) {
+                        store.set(skey, JSON.stringify(items))
+                      }
+                      list.push.apply(list, items);
+                      completed++
+                      if (completed === total) resolve(list)
+                    }).catch(function(ex) {
+                      if (attempt < MAX_RETRY) {
+                        setTimeout(function() {
+                          fetchData(attempt + 1)
+                        }, 1000 * Math.pow(2, attempt))
+                      } else {
+                        completed++
+                        if (completed === total) {
+                          if (list.length > 0) {
+                            resolve(list)
+                          } else {
+                            reject(ex)
+                          }
+                        }
+                      }
+                    })
+                } else {
+                  fetch('https://api.i-meto.com/meting/api?server='+meta[0]+'&type='+meta[1]+'&id='+meta[2]+'&r='+ Math.random())
+                    .then(function(response) {
+                      if (!response.ok) throw new Error('HTTP error ' + response.status)
+                      return response.json()
+                    }).then(function(json) {
+                      if (json && json.length > 0) {
+                        store.set(skey, JSON.stringify(json))
+                      }
+                      list.push.apply(list, json);
+                      completed++
+                      if (completed === total) resolve(list)
+                    }).catch(function(ex) {
+                      if (attempt < MAX_RETRY) {
+                        setTimeout(function() {
+                          fetchData(attempt + 1)
+                        }, 1000 * Math.pow(2, attempt))
+                      } else {
+                        completed++
+                        if (completed === total) {
+                          if (list.length > 0) {
+                            resolve(list)
+                          } else {
+                            reject(ex)
+                          }
+                        }
+                      }
+                    })
+                }
               }
               fetchData(retryCount)
             }
@@ -324,17 +386,45 @@ const mediaPlayer = function(t, config) {
         return;
       }
       var that = this
-      source.play().then(function() {
+      if (playlist.current().type === 'bilibili') {
+        var iframe = preview.el && preview.el.find('iframe')[0]
+        if (iframe) {
+          iframe.contentWindow.postMessage(JSON.stringify({
+            "type":"play"
+          }), "*")
+        }
         playlist.scroll()
-      }).catch(function(e) {});
+      } else {
+        source.play().then(function() {
+          playlist.scroll()
+        }).catch(function(e) {});
+      }
     },
     pause: function() {
-      source.pause()
+      if (playlist.current() && playlist.current().type === 'bilibili') {
+        var iframe = preview.el && preview.el.find('iframe')[0]
+        if (iframe) {
+          iframe.contentWindow.postMessage(JSON.stringify({
+            "type":"pause"
+          }), "*")
+        }
+      } else {
+        source.pause()
+      }
       document.title = originTitle
     },
     stop: function() {
-      source.pause();
-      source.currentTime = 0;
+      if (playlist.current() && playlist.current().type === 'bilibili') {
+        var iframe = preview.el && preview.el.find('iframe')[0]
+        if (iframe) {
+          iframe.contentWindow.postMessage(JSON.stringify({
+            "type":"pause"
+          }), "*")
+        }
+      } else {
+        source.pause();
+        source.currentTime = 0;
+      }
       document.title = originTitle;
     },
     seek: function(time) {
@@ -606,13 +696,20 @@ const mediaPlayer = function(t, config) {
     create: function () {
       var current = playlist.current()
 
-      this.el.innerHTML = '<div class="cover"><div class="disc"><img src="'+(current.cover)+'" class="blur" /></div></div>'
-      + '<div class="info"><h4 class="title">'+current.name+'</h4><span>'+current.artist+'</span>'
-      + '<div class="lrc"></div></div>'
+      if (current.type === 'bilibili') {
+        this.el.innerHTML = '<div class="cover"><div class="bilibili-player-embed"><iframe src="' + current.url + '" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe><div class="login-hint"><span>请确保已登录B站以完整观看</span></div></div></div>'
+        + '<div class="info"><h4 class="title">'+current.name+'</h4><span>'+current.artist+'</span></div>'
 
-      this.el.child('.cover').addEventListener('click', t.player.options.events['play-pause'])
+        this.el.child('.cover').addEventListener('click', t.player.options.events['play-pause'])
+      } else {
+        this.el.innerHTML = '<div class="cover"><div class="disc"><img src="'+(current.cover)+'" class="blur" /></div></div>'
+        + '<div class="info"><h4 class="title">'+current.name+'</h4><span>'+current.artist+'</span>'
+        + '<div class="lrc"></div></div>'
 
-      lyrics.create(this.el.child('.lrc'))
+        this.el.child('.cover').addEventListener('click', t.player.options.events['play-pause'])
+
+        lyrics.create(this.el.child('.lrc'))
+      }
     }
   }
 

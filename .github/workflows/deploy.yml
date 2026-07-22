@@ -23,8 +23,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          repository: californiafitzleo/californiafitzleo.github.io
-          ref: source
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -53,4 +51,3 @@ jobs:
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
           commit_message: 'deploy: ${{ github.event.head_commit.message }}'
-          external_repository: californiafitzleo/californiafitzleo.github.io
