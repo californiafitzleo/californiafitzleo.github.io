@@ -346,11 +346,19 @@ const postBeauty = function () {
   })
 
   $.each('.md div.player', function(element) {
-    mediaPlayer(element, {
-      type: element.attr('data-type'),
-      mode: 'order',
-      btns: []
-    }).player.load(JSON.parse(element.attr('data-src'))).fetch()
+    var type = element.attr('data-type')
+    if (type === 'bilibili') {
+      bilibiliPlayer(element, {
+        mode: 'order',
+        btns: []
+      })
+    } else {
+      mediaPlayer(element, {
+        type: type,
+        mode: 'order',
+        btns: []
+      }).player.load(JSON.parse(element.attr('data-src'))).fetch()
+    }
   })
 }
 

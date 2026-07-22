@@ -895,3 +895,236 @@ const mediaPlayer = function(t, config) {
 
   return t;
 }
+
+const bilibiliPlayer = function(t, config) {
+  var option = {
+    mode: 'order',
+    btns: ['play-pause', 'music'],
+    controls: ['mode', 'backward', 'play-pause', 'forward'],
+    events: {
+      "play-pause": function(event) {
+        var iframe = t.querySelector('iframe')
+        if (iframe) {
+          var wrapper = t.querySelector('.bilibili-wrapper')
+          wrapper.toggleClass('playing')
+        }
+      },
+      "music": function(event) {
+        var info = t.querySelector('.bilibili-info')
+        if(info) {
+          if(info.hasClass('show')) {
+            info.removeClass('show')
+            info.addClass('hide')
+            setTimeout(function() {
+              info.removeClass('show hide')
+            }, 300)
+          } else {
+            info.addClass('show')
+          }
+        }
+      }
+    }
+  }
+
+  var data = {
+    list: [],
+    index: 0,
+    iframe: null,
+    wrapper: null,
+    info: null,
+    controller: null,
+    playlist: null
+  }
+
+  var utils = {
+    random: function(len) {
+      return Math.floor((Math.random()*len))
+    },
+    buildUrl: function(bvid, page) {
+      return 'https://player.bilibili.com/player.html?bvid=' + bvid +
+             '&page=' + (page || 1) +
+             '&high_quality=1&danmaku=0&autoplay=1'
+    }
+  }
+
+  t.player = {
+    load: function(newList) {
+      if(newList && newList.length > 0) {
+        data.list = newList
+        this.render()
+      }
+    },
+    render: function() {
+      if(data.list.length === 0) return
+
+      var current = data.list[data.index]
+      var html = '<div class="bilibili-wrapper">' +
+                 '<div class="bilibili-frame">' +
+                 '<iframe src="' + utils.buildUrl(current.bvid, current.page) + '" ' +
+                 'scrolling="no" border="0" frameborder="no" framespacing="0" ' +
+                 'allowfullscreen="true"></iframe>' +
+                 '</div>' +
+                 '<div class="bilibili-cover">' +
+                 '<div class="cover-img" style="background-image:url(' + (current.cover || '') + ')"></div>' +
+                 '<div class="cover-play"><i class="ic i-play"></i></div>' +
+                 '</div>' +
+                 '</div>' +
+                 '<div class="bilibili-meta">' +
+                 '<h4 class="title">' + escapeHtml(current.title || current.bvid) + '</h4>' +
+                 '<span class="author">' + escapeHtml(current.author || 'Bilibili') + '</span>' +
+                 '</div>'
+
+      t.innerHTML = html
+
+      data.wrapper = t.querySelector('.bilibili-wrapper')
+      data.iframe = t.querySelector('iframe')
+
+      this.createInfo()
+      this.createController()
+      this.updateController()
+
+      var that = this
+      data.wrapper.addEventListener('click', function() {
+        that.togglePlay()
+      })
+    },
+    createInfo: function() {
+      data.info = document.createElement('div')
+      data.info.className = 'bilibili-info'
+
+      var listHtml = '<ol>'
+      data.list.forEach(function(item, index) {
+        listHtml += '<li data-index="' + index + '" title="' + escapeHtml(item.title || item.bvid) + '">' +
+                   '<span class="info"><span>' + escapeHtml(item.title || item.bvid) + '</span>' +
+                   '<span>' + escapeHtml(item.author || 'Bilibili') + '</span></span>' +
+                   '</li>'
+      })
+      listHtml += '</ol>'
+
+      data.info.innerHTML = '<div class="controller"></div><div class="playlist">' + listHtml + '</div>'
+      t.appendChild(data.info)
+
+      var that = this
+      data.info.querySelectorAll('li').forEach(function(li) {
+        li.addEventListener('click', function(e) {
+          e.stopPropagation()
+          var idx = parseInt(this.getAttribute('data-index'))
+          if(idx !== data.index) {
+            data.index = idx
+            that.render()
+          }
+        })
+      })
+    },
+    createController: function() {
+      var ctrl = data.info.querySelector('.controller')
+      if(!ctrl) return
+
+      var that = this
+      var btns = ['mode', 'backward', 'play-pause', 'forward']
+      btns.forEach(function(item) {
+        var btn = document.createElement('div')
+        btn.className = item + ' btn'
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation()
+          that.handleControl(item)
+        })
+        ctrl.appendChild(btn)
+      })
+    },
+    updateController: function() {
+      var modeBtn = data.info.querySelector('.mode')
+      if(modeBtn) modeBtn.className = 'mode ' + option.mode + ' btn'
+
+      var lis = data.info.querySelectorAll('li')
+      lis.forEach(function(li) {
+        li.removeClass('active')
+      })
+      if(lis[data.index]) {
+        lis[data.index].addClass('active')
+      }
+    },
+    handleControl: function(action) {
+      switch(action) {
+        case 'mode':
+          switch(option.mode) {
+            case 'loop': option.mode = 'random'; break
+            case 'random': option.mode = 'order'; break
+            default: option.mode = 'loop'
+          }
+          store.set('_PlayerMode', option.mode)
+          this.updateController()
+          break
+        case 'backward':
+          this.prev()
+          break
+        case 'forward':
+          this.next()
+          break
+        case 'play-pause':
+          this.togglePlay()
+          break
+      }
+    },
+    togglePlay: function() {
+      if(data.wrapper) {
+        data.wrapper.toggleClass('playing')
+      }
+    },
+    next: function() {
+      var total = data.list.length
+      if(total <= 1) return
+
+      switch(option.mode) {
+        case 'random':
+          var next = utils.random(total)
+          if(next === data.index) next = (next + 1) % total
+          data.index = next
+          break
+        case 'order':
+          data.index = (data.index + 1) % total
+          break
+        case 'loop':
+          data.index = (data.index + 1) % total
+          break
+      }
+      this.render()
+    },
+    prev: function() {
+      var total = data.list.length
+      if(total <= 1) return
+
+      switch(option.mode) {
+        case 'random':
+          var prev = utils.random(total)
+          if(prev === data.index) prev = (prev - 1 + total) % total
+          data.index = prev
+          break
+        case 'order':
+        case 'loop':
+          data.index = (data.index - 1 + total) % total
+          break
+      }
+      this.render()
+    }
+  }
+
+  var init = function(config) {
+    if(t.player.created) return
+    option = Object.assign(option, config)
+    option.mode = store.get('_PlayerMode') || option.mode
+    t.player.created = true
+  }
+
+  init(config)
+
+  var srcData = t.attr('data-src')
+  if(srcData) {
+    try {
+      var list = JSON.parse(srcData)
+      t.player.load(list)
+    } catch(e) {}
+  }
+
+  return t
+}
