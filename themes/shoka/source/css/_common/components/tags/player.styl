@@ -99,11 +99,26 @@
   }
 
   .mode {
+    position: relative;
+
     &.random::before {
       @extend .i-random:before;
     }
     &.loop::before {
       @extend .i-loop:before;
+    }
+    &.single::before {
+      @extend .i-loop:before;
+    }
+    &.single::after {
+      content: "1";
+      position: absolute;
+      bottom: .0625rem;
+      right: 20%;
+      font-size: .625rem;
+      font-weight: bold;
+      line-height: 1;
+      color: var(--color-pink);
     }
     &.order::before {
       @extend .i-order:before;
@@ -728,11 +743,26 @@
       }
 
       .mode {
+        position: relative;
+
         &.random::before {
           @extend .i-random:before;
         }
         &.loop::before {
           @extend .i-loop:before;
+        }
+        &.single::before {
+          @extend .i-loop:before;
+        }
+        &.single::after {
+          content: "1";
+          position: absolute;
+          bottom: .0625rem;
+          right: 20%;
+          font-size: .625rem;
+          font-weight: bold;
+          line-height: 1;
+          color: var(--color-pink);
         }
         &.order::before {
           @extend .i-order:before;

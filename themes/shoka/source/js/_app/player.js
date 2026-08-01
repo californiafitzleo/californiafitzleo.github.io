@@ -260,45 +260,78 @@ const mediaPlayer = function(t, config) {
           }
         })
     },
-    // 根据模式切换当前曲目index
+    // 根据模式切换当前曲目index（板块内隔离）
     mode: function() {
       var total = playlist.data.length;
 
       if(!total || playlist.errnum == total)
         return;
 
+      // 确定当前所在板块（group），用于板块内循环/随机隔离
+      var current = playlist.current()
+      var currentGroup = current ? current.group : 0
+
+      // 收集当前板块内所有有效（非error）曲目的索引
+      var groupIndices = []
+      playlist.data.forEach(function(item, i) {
+        if (item.group === currentGroup && !item.error) {
+          groupIndices.push(i)
+        }
+      })
+
+      // 当前板块无可用曲目时，回退到所有可用曲目
+      if (groupIndices.length === 0) {
+        playlist.data.forEach(function(item, i) {
+          if (!item.error) {
+            groupIndices.push(i)
+          }
+        })
+        if (groupIndices.length === 0) return
+      }
+
+      var posInGroup = groupIndices.indexOf(playlist.index)
       var step = controller.step == 'next' ? 1 : -1
 
       var next = function() {
-        var index = playlist.index + step
-        if(index > total || index < 0) {
-          index = controller.step == 'next' ? 0 : total-1;
+        if (posInGroup === -1) {
+          playlist.index = groupIndices[0]
+        } else {
+          var nextPos = posInGroup + step
+          if (nextPos >= groupIndices.length) {
+            nextPos = 0
+          } else if (nextPos < 0) {
+            nextPos = groupIndices.length - 1
+          }
+          playlist.index = groupIndices[nextPos]
         }
-        playlist.index = index;
       }
 
       var random = function() {
-        var p = utils.random(total)
-        if(playlist.index !== p) {
-          playlist.index = p
-        } else {
-          next()
+        if (groupIndices.length <= 1) {
+          playlist.index = groupIndices[0]
+          return
         }
+        var p = utils.random(groupIndices.length)
+        if (groupIndices[p] === playlist.index) {
+          p = (p + 1) % groupIndices.length
+        }
+        playlist.index = groupIndices[p]
       }
 
       switch (this.options.mode) {
         case 'random':
           random()
           break;
-        case 'order':
-          next()
-          break;
-        case 'loop':
-          if(controller.step)
+        case 'single':
+          // 单曲循环：不切换索引，仅重播当前曲目
+          if (playlist.index === -1) {
             next()
-
-          if(playlist.index == -1)
-            random()
+          }
+          break;
+        case 'order':
+        case 'loop':
+        default:
+          next()
           break;
       }
 
@@ -308,8 +341,8 @@ const mediaPlayer = function(t, config) {
     switch: function(index) {
       if(typeof index == 'number'
         && index != playlist.index
-        && playlist.current()
-        && !playlist.current().error) {
+        && playlist.data[index]
+        && !playlist.data[index].error) {
         playlist.index = index;
         this.init()
       }
@@ -355,12 +388,13 @@ const mediaPlayer = function(t, config) {
     play: function() {
       NOWPLAYING && NOWPLAYING.player.pause()
 
-      if(playlist.current().error) {
+      var current = playlist.current()
+      if(!current || current.error) {
         this.mode();
         return;
       }
       var that = this
-      if (playlist.current().type === 'bilibili') {
+      if (current.type === 'bilibili') {
         var iframe = preview.el && preview.el.find('iframe')[0]
         if (iframe) {
           iframe.contentWindow.postMessage(JSON.stringify({
@@ -809,7 +843,10 @@ const mediaPlayer = function(t, config) {
             t.player.options.mode = 'random'
             break;
           case 'random':
-            t.player.options.mode = 'order'
+            t.player.options.mode = 'single'
+            break;
+          case 'single':
+            t.player.options.mode = 'loop'
             break;
           default:
             t.player.options.mode = 'loop'
@@ -817,6 +854,13 @@ const mediaPlayer = function(t, config) {
 
         controller.btns['mode'].className = 'mode ' + t.player.options.mode + ' btn'
         store.set('_PlayerMode', t.player.options.mode)
+
+        var modeNames = {
+          'loop': '列表循环',
+          'random': '随机播放',
+          'single': '单曲循环'
+        }
+        showtip(modeNames[t.player.options.mode] || t.player.options.mode)
       },
       volume: function(e) {
         e.preventDefault()
@@ -908,8 +952,16 @@ const mediaPlayer = function(t, config) {
     },
     onended: function(argument) {
       t.player.saveState()
-      t.player.mode()
-      t.player.play()
+      if (t.player.options.mode === 'single') {
+        // 单曲循环：直接重播当前曲目
+        t.player.seek(0)
+        t.player.play()
+      } else {
+        // 自然播放结束默认前进
+        controller.step = 'next'
+        t.player.mode()
+        t.player.play()
+      }
     },
     onseeked: function() {
       t.player.saveState()
@@ -946,6 +998,15 @@ const mediaPlayer = function(t, config) {
 
     t.player.options = Object.assign(option, config);
     t.player.options.mode = store.get('_PlayerMode') || t.player.options.mode
+    // 迁移旧模式：order -> loop
+    if (t.player.options.mode === 'order') {
+      t.player.options.mode = 'loop'
+      store.set('_PlayerMode', 'loop')
+    }
+    // 校验模式有效性
+    if (['loop', 'random', 'single'].indexOf(t.player.options.mode) === -1) {
+      t.player.options.mode = 'loop'
+    }
 
     // 初始化button、controls以及click事件
     buttons.create()
@@ -1131,11 +1192,18 @@ const bilibiliPlayer = function(t, config) {
         case 'mode':
           switch(option.mode) {
             case 'loop': option.mode = 'random'; break
-            case 'random': option.mode = 'order'; break
+            case 'random': option.mode = 'single'; break
+            case 'single': option.mode = 'loop'; break
             default: option.mode = 'loop'
           }
           store.set('_PlayerMode', option.mode)
           this.updateController()
+          var modeNames = {
+            'loop': '列表循环',
+            'random': '随机播放',
+            'single': '单曲循环'
+          }
+          showtip(modeNames[option.mode] || option.mode)
           break
         case 'backward':
           this.prev()
@@ -1163,10 +1231,12 @@ const bilibiliPlayer = function(t, config) {
           if(next === data.index) next = (next + 1) % total
           data.index = next
           break
-        case 'order':
-          data.index = (data.index + 1) % total
+        case 'single':
+          // 单曲循环：不切换
           break
+        case 'order':
         case 'loop':
+        default:
           data.index = (data.index + 1) % total
           break
       }
@@ -1182,8 +1252,12 @@ const bilibiliPlayer = function(t, config) {
           if(prev === data.index) prev = (prev - 1 + total) % total
           data.index = prev
           break
+        case 'single':
+          // 单曲循环：不切换
+          break
         case 'order':
         case 'loop':
+        default:
           data.index = (data.index - 1 + total) % total
           break
       }
@@ -1195,6 +1269,10 @@ const bilibiliPlayer = function(t, config) {
     if(t.player.created) return
     option = Object.assign(option, config)
     option.mode = store.get('_PlayerMode') || option.mode
+    if (option.mode === 'order') {
+      option.mode = 'loop'
+      store.set('_PlayerMode', 'loop')
+    }
     t.player.created = true
   }
 
